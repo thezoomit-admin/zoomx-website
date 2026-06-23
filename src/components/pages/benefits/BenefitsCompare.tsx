@@ -111,7 +111,7 @@ export function BenefitsCompare() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-linear-to-b from-white/4 to-transparent backdrop-blur-xl md:mt-10"
+          className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-linear-to-b from-white/4 to-transparent backdrop-blur-xl md:mt-10"
         >
           <div className="grid grid-cols-[1.4fr_1fr_1fr_1.2fr] items-center gap-3 border-b border-white/10 bg-black/30 px-4 py-4 md:gap-6 md:px-7">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
