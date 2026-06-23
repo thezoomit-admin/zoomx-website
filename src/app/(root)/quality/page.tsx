@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { CheckSquare, Eye, Palette, Type } from "lucide-react";
 
-import { FeaturePage } from "@/components/pages/feature/FeaturePage";
+import { DeliverySpec } from "@/components/pages/quality/DeliverySpec";
+import { QualityShowcase } from "@/components/pages/quality/QualityShowcase";
+import { ReviewPipeline } from "@/components/pages/quality/ReviewPipeline";
 import { ContactForm } from "@/components/pages/home/ContactForm";
-import { Footer } from "@/components/pages/home/Footer";
 import { CtaSection } from "@/components/shared/CtaSection";
 import { PageHero } from "@/components/shared/PageHero";
 
@@ -24,48 +24,11 @@ export default function QualityPage() {
         description="Every cut goes through a brand check, a senior review, and a delivery QC before it ever hits your inbox."
       />
 
-      <FeaturePage
-        intro={{
-          eyebrow: "Our Quality Bar",
-          titleGradient: "Built To Pass",
-          titleWhite: "A Founder's Final Look",
-          body: "We optimize for the version of you that's tired, half-distracted, and ready to ship — your final review should be a yes, not another round of notes.",
-        }}
-        pillars={[
-          {
-            icon: Palette,
-            title: "Brand-Kit Calibration",
-            description:
-              "Type, color, motion, sound — your brand kit lives on the timeline, applied before the first hand-off.",
-          },
-          {
-            icon: Eye,
-            title: "Three-Pass Review Loop",
-            description:
-              "Editor → senior lead → producer. Each pass has a checklist, so problems get caught before they reach you.",
-          },
-          {
-            icon: Type,
-            title: "Captions & Accessibility",
-            description:
-              "Burned-in or sidecar SRT captions, brand-styled, audited for accuracy — never an afterthought.",
-          },
-          {
-            icon: CheckSquare,
-            title: "Delivery QC Checklist",
-            description:
-              "Codec, aspect ratio, loudness, file size, platform spec — verified against the brief on every export.",
-          },
-        ]}
-        stats={[
-          { value: "3", label: "Review Passes" },
-          { value: "−66%", label: "Revision Rounds" },
-          { value: "100%", label: "Brand-Kit Coverage" },
-          { value: "<24h", label: "Average Turnaround" },
-        ]}
-      />
+      <QualityShowcase />
+      <ReviewPipeline />
+      <DeliverySpec />
 
-      <section className="relative pt-12 pb-16 md:pt-16 md:pb-20">
+      <section className="relative pt-8 pb-10 md:pt-10 md:pb-12">
         <div className="app-container">
           <CtaSection
             eyebrow="See It On Your Brand"
@@ -79,8 +42,6 @@ export default function QualityPage() {
       </section>
 
       <ContactForm />
-
-      <Footer />
     </main>
   );
 }

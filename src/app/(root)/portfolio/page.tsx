@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/pages/home/ContactForm";
-import { Footer } from "@/components/pages/home/Footer";
 import { Work } from "@/components/pages/home/Work";
 import { CtaSection } from "@/components/shared/CtaSection";
 import { PageHero } from "@/components/shared/PageHero";
@@ -40,7 +39,7 @@ export default function PortfolioPage() {
 
       <ContactForm />
 
-      <Footer />
+    
     </main>
   );
 }

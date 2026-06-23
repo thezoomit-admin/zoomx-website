@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 export type FeaturePillar = {
-  icon: LucideIcon;
+  icon: ReactNode;
   title: string;
   description: string;
 };
@@ -99,7 +99,6 @@ function FeatureIntro({ intro }: { intro: FeatureSectionProps["intro"] }) {
 }
 
 function PillarCard({ pillar, index }: { pillar: FeaturePillar; index: number }) {
-  const Icon = pillar.icon;
   return (
     <motion.div
       variants={itemVariants}
@@ -117,13 +116,13 @@ function PillarCard({ pillar, index }: { pillar: FeaturePillar; index: number })
       <div className="relative flex items-start gap-4">
         <span
           aria-hidden
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 text-[#c9b3ec] transition-all duration-500 group-hover:border-[#a888c8]/40 group-hover:text-white"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 text-[#c9b3ec] transition-all duration-500 group-hover:border-[#a888c8]/40 group-hover:text-white [&_svg]:h-5 [&_svg]:w-5"
           style={{
             background:
               "linear-gradient(135deg, rgba(92,46,157,0.25), rgba(124,73,157,0.08))",
           }}
         >
-          <Icon className="h-5 w-5" />
+          {pillar.icon}
         </span>
 
         <div className="min-w-0 flex-1">
