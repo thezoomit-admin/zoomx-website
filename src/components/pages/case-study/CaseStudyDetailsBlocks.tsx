@@ -55,9 +55,9 @@ const listContainerVariants: Variants = {
 const punchVariants: Variants = {
   hidden: {
     opacity: 0,
-    x: -140,
-    skewX: 14,
-    filter: "blur(14px)",
+    x: -70,
+    skewX: 6,
+    filter: "blur(8px)",
   },
   visible: {
     opacity: 1,
@@ -66,9 +66,9 @@ const punchVariants: Variants = {
     filter: "blur(0px)",
     transition: {
       type: "spring",
-      stiffness: 210,
-      damping: 13,
-      mass: 0.75,
+      stiffness: 220,
+      damping: 22,
+      mass: 0.6,
       restDelta: 0.001,
     },
   },
@@ -77,9 +77,9 @@ const punchVariants: Variants = {
 const numberVariants: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.3,
-    rotate: -12,
-    filter: "blur(28px)",
+    scale: 0.55,
+    rotate: -6,
+    filter: "blur(14px)",
   },
   visible: {
     opacity: 1,
@@ -88,9 +88,9 @@ const numberVariants: Variants = {
     filter: "blur(0px)",
     transition: {
       type: "spring",
-      stiffness: 95,
-      damping: 14,
-      mass: 1.3,
+      stiffness: 120,
+      damping: 18,
+      mass: 1,
       restDelta: 0.001,
     },
   },
@@ -132,7 +132,7 @@ function BlockShell({
     target: numberRef,
     offset: ["start end", "end start"],
   });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["80px", "-80px"]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["40px", "-40px"]);
 
   return (
     <motion.section
