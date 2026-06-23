@@ -134,10 +134,29 @@ export function SecurityStack() {
           </div>
 
           <div className="relative lg:col-span-8">
-            <div
+            <svg
               aria-hidden
-              className="pointer-events-none absolute left-[34px] top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-[#7c499d]/40 to-transparent"
-            />
+              className="pointer-events-none absolute left-0 top-6 bottom-6 h-[calc(100%-3rem)] w-[68px]"
+              viewBox="0 0 68 1000"
+              preserveAspectRatio="none"
+              fill="none"
+            >
+              <defs>
+                <linearGradient id="snakeGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#7c499d" stopOpacity="0" />
+                  <stop offset="20%" stopColor="#a888c8" stopOpacity="0.7" />
+                  <stop offset="80%" stopColor="#7c499d" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#5c2e9d" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 34 30 C 64 130, 4 230, 34 330 C 64 430, 4 530, 34 630 C 64 730, 4 830, 34 970"
+                stroke="url(#snakeGrad)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
 
             <ol className="space-y-4">
               {LAYERS.map((layer) => (
