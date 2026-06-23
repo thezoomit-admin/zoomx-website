@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { toEmbedUrl } from "@/lib/embed-url";
 import { cn } from "@/lib/utils";
 
@@ -91,21 +92,20 @@ export function Work() {
           {TABS.map((t, i) => {
             const isActive = i === activeIdx;
             return (
-              <button
+              <Button
                 key={t.label}
                 role="tab"
                 aria-selected={isActive}
                 type="button"
+                variant={isActive ? "brand" : "ghost"}
                 onClick={() => setActiveIdx(i)}
                 className={cn(
-                  "font-syne text-sm font-semibold transition-all duration-200",
-                  isActive
-                    ? "rounded-lg bg-gradient-to-r from-[#5c2e9d] to-[#4b2482] px-3 py-2 text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)]"
-                    : "rounded-lg px-3 py-2 text-white/70 hover:text-white",
+                  "font-syne text-sm font-semibold",
+                  isActive ? "from-[#5c2e9d] to-[#4b2482]" : "text-white/70 hover:text-white hover:bg-transparent",
                 )}
               >
                 {t.label}
-              </button>
+              </Button>
             );
           })}
         </div>

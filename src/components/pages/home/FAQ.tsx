@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const faqs = [
@@ -51,11 +52,12 @@ type FaqItemProps = {
 function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
   return (
     <div className="overflow-hidden rounded-2xl border border-[#ffffff0f] bg-[#0a0a0a]">
-      <button
+      <Button
         type="button"
+        variant="ghost"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6 sm:py-6"
+        className="flex h-auto w-full items-center justify-between gap-4 rounded-none px-5 py-5 text-left hover:bg-white/2 sm:px-6 sm:py-6"
       >
         <span className="font-syne text-[15px] font-semibold leading-snug text-white sm:text-base">
           {question}
@@ -75,7 +77,7 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
             )}
           />
         </span>
-      </button>
+      </Button>
 
       <AnimatePresence initial={false}>
         {isOpen && (

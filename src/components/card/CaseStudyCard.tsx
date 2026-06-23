@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export type CaseStudy = {
   index: string;
+  slug?: string;
   quote: { lead: string; punch: string };
   author: { name: string; role: string; avatar: string };
   stats: { value: string; label: string }[];
@@ -82,10 +83,18 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
           </div>
         </div>
 
-        <Button href="#book-a-call" variant="brand" size="cta">
-          Book A Call
-          <ArrowUpRight />
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          {c.slug && (
+            <Button href={`/case-study/${c.slug}`} variant="brandOutline" size="cta">
+              Read Case Study
+              <ArrowUpRight />
+            </Button>
+          )}
+          <Button href="#book-a-call" variant="brand" size="cta">
+            Book A Call
+            <ArrowUpRight />
+          </Button>
+        </div>
       </div>
 
       <div className="mt-12 grid gap-10 md:mt-14 md:grid-cols-2 md:gap-12 md:items-end">
@@ -95,7 +104,13 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
               initial={{ y: -40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              transition={{ type: "spring", stiffness: 280, damping: 14, mass: 0.8 }}
+              transition={{
+                type: "spring",
+                stiffness: 280,
+                damping: 14,
+                mass: 0.8,
+                delay: 0.85,
+              }}
             >
               <p className="font-syne text-3xl font-bold text-white md:text-4xl">
                 {c.stats[0].value}
@@ -107,7 +122,7 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: "bottom" }}
               className="h-60 w-25 rounded-lg bg-[#5c2e9d] shadow-[0_2px_20px_3px_#5c2e9d91]"
             />
@@ -122,7 +137,7 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 stiffness: 280,
                 damping: 14,
                 mass: 0.8,
-                delay: 0.12,
+                delay: 1.0,
               }}
             >
               <p className="font-syne text-3xl font-bold text-white md:text-4xl">
@@ -135,7 +150,7 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: "bottom" }}
               className="h-40 w-20 rounded-lg bg-[#7c499d] shadow-[0_2px_20px_3px_#5c2e9d91]"
             />

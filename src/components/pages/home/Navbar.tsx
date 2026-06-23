@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { Image } from "@/components/shared/Image";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -93,22 +94,27 @@ export function Navbar() {
               })}
             </ul>
 
-            <a
+            <Button
               href="#book-a-call"
-              className="hidden items-center gap-2 rounded-md bg-gradient-to-r from-[#5c2e9d] to-[#7c499d] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)] transition-all duration-200 md:inline-flex hover:from-[#4c2583] hover:to-[#6c3e89]"
+              variant="brand"
+              size="cta"
+              className="hidden md:inline-flex"
             >
               Book A Call
-            </a>
+              <ArrowUpRight />
+            </Button>
 
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={() => setOpen(!open)}
-              className="text-white md:hidden"
+              className="text-white hover:bg-white/5 md:hidden"
               aria-expanded={open}
               aria-label="Toggle menu"
             >
               {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            </Button>
           </nav>
 
           <AnimatePresence initial={false}>
@@ -149,13 +155,16 @@ export function Navbar() {
                     );
                   })}
                   <li>
-                    <a
+                    <Button
                       href="#book-a-call"
                       onClick={() => setOpen(false)}
-                      className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#5c2e9d] to-[#7c499d] px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)]"
+                      variant="brand"
+                      size="cta"
+                      className="mt-2 w-full justify-center"
                     >
-                      Book A Call <ArrowUpRight className="h-4 w-4 shrink-0" />
-                    </a>
+                      Book A Call
+                      <ArrowUpRight />
+                    </Button>
                   </li>
                 </ul>
               </motion.div>

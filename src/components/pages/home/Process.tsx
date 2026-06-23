@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from "rea
 
 import { PostConfetti } from "@/components/pages/home/PostConfetti";
 import { Image } from "@/components/shared/Image";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // const GLOW = "/67b5dd36b3452df31baf9345_Glow.avif";
@@ -704,13 +705,10 @@ export function Process() {
           </ol>
 
           <div className="mt-16 flex justify-center md:mt-20">
-            <a
-              href="#book-a-call"
-              className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-[#450658] to-[#430356] px-6 py-3.5 font-syne text-sm font-semibold text-white shadow-[0_4px_24px_-4px_rgba(102, 39, 107,0.45)] transition-all duration-200 hover:from-[#48085b] hover:to-[#360345]"
-            >
+            <Button href="#book-a-call" variant="brand" size="cta">
               Book A 30-Min Call
-              <ArrowUpRight className="h-4 w-4 shrink-0" />
-            </a>
+              <ArrowUpRight />
+            </Button>
           </div>
         </div>
       </div>

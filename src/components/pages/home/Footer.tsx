@@ -82,7 +82,7 @@ const socialLinks = [
 ] as const;
 
 const linkClassName =
-  "font-syne text-[14px] font-medium text-[#ffffffb3] transition-colors hover:text-white";
+  "font-syne text-[14px] font-medium text-white transition-opacity hover:opacity-80";
 
 function TopographyBackdrop() {
   return (
@@ -90,12 +90,15 @@ function TopographyBackdrop() {
       aria-hidden
       className="pointer-events-none absolute inset-0 overflow-hidden bg-[#0a0410]"
     >
-      <Image
-        src="/footer/footer3.png"
-        alt=""
-        sizes="100vw"
-        className="object-cover object-bottom"
-      />
+      <div className="absolute inset-x-0 bottom-0 h-[70%] md:h-[80%]">
+        <Image
+          src="/footer/footer6.png"
+          alt=""
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0410] to-transparent" />
+      </div>
       <div
         className="absolute inset-0"
         style={{
@@ -127,7 +130,7 @@ export function Footer() {
     <footer className="relative border-t border-white/4 bg-[#0a0410] shadow-[inset_0_32px_56px_-24px_rgba(0,0,0,0.95)]">
       <div className="relative isolate overflow-hidden">
         <TopographyBackdrop />
-        <div className="relative z-10 app-container pb-14 pt-24 md:pb-20 md:pt-36">
+        <div className="relative z-10 app-container pb-14 pt-10 md:pb-20 md:pt-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-12">
           <div className="flex flex-col gap-5 md:col-span-4">
             <Image
@@ -137,7 +140,7 @@ export function Footer() {
               height={36}
               className="h-9 w-fit object-contain"
             />
-            <p className="max-w-[300px] text-[13px] leading-relaxed text-[#ffffff80]">
+            <p className="max-w-[300px] text-[14px] leading-relaxed text-white/95">
               Done-For-You organic video content systems that generate leads on autopilot.
             </p>
           </div>
@@ -167,7 +170,7 @@ export function Footer() {
             <h3 className="font-syne text-[14px] font-semibold uppercase tracking-[0.12em] text-white">
               ADDRESS
             </h3>
-            <address className="not-italic text-[14px] leading-relaxed text-[#ffffffb3]">
+            <address className="not-italic text-[14px] leading-relaxed text-white">
               116 Village Blvd, Suite 220,
               <br />
               Princeton, NJ 08540

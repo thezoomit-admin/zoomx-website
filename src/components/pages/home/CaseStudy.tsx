@@ -3,6 +3,7 @@ import { CaseStudyCard, type CaseStudy } from "@/components/card/CaseStudyCard";
 const CASES: CaseStudy[] = [
   {
     index: "01",
+    slug: "spencer-pawliw-coaching",
     quote: {
       lead: "With just 5,000 subscribers,",
       punch: "Spencer now generates $350K per month",
