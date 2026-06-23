@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
+
+import servicesContent from "@/data/services.json";
 
 /* ============================================================
  * OLD DESIGN — Marquee row of service cards. Kept for reference.
@@ -75,32 +78,42 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
  *   </div>
  * ============================================================ */
 
-const GALLERY_IMAGES = [
-  "/images/02.png",
-  "/images/03.png",
-  "/images/04.png",
-  "/images/05.png",
-  "/images/06.png",
-  "/images/07.png",
-  "/images/08.png",
-  "/images/09.png",
-  "/images/10.png",
-  "/images/11.png",
-  "/images/12.png",
-  "/images/13.png",
-  "/images/14.png",
-  "/images/15.png",
-  "/images/16.png",
-  "/images/17.png",
-  "/images/18.png",
-  "/images/19.png",
-  "/images/20.png",
-  "/images/21.png",
-  "/images/22.png",
-];
+type ServicesJson = {
+  services: { slug: string; cardImages?: string[] }[];
+};
 
-const MIN_IMAGE_DURATION = 3.5;
-const MAX_CYCLE_DURATION = 72;
+type ServiceCard = { slug: string; images: string[] };
+
+// Build 12 cards from services.json by interleaving services so adjacent
+// cards point to different slugs. Each card gets a non-overlapping slice of
+// its service's cardImages so no image appears on screen twice.
+function buildServiceCards(): ServiceCard[] {
+  const data = servicesContent as ServicesJson;
+  const services = data.services.filter((s) => (s.cardImages?.length ?? 0) > 0);
+  const totalCards = 12;
+  if (services.length === 0) return [];
+
+  // Track how many cards per service we've already emitted.
+  const usedPerService = new Map<string, number>();
+  const cards: ServiceCard[] = [];
+
+  for (let i = 0; i < totalCards; i += 1) {
+    const svc = services[i % services.length];
+    const usedSoFar = usedPerService.get(svc.slug) ?? 0;
+    const pool = svc.cardImages ?? [];
+    const imagesPerCard = 2;
+    const start = (usedSoFar * imagesPerCard) % pool.length;
+    const images = Array.from({ length: imagesPerCard }, (_, k) => pool[(start + k) % pool.length]);
+    cards.push({ slug: svc.slug, images });
+    usedPerService.set(svc.slug, usedSoFar + 1);
+  }
+  return cards;
+}
+
+const SERVICE_CARDS = buildServiceCards();
+
+const MIN_IMAGE_DURATION = 0.6;
+const MAX_CYCLE_DURATION = 12;
 
 type FlowDirection = "up" | "down" | "left" | "right";
 
@@ -133,7 +146,9 @@ function FlowCard({
   );
   const cycleDuration = imageDuration * numImages;
 
-  const looped = [...images, ...images, ...images];
+  // Two-copy loop: animate exactly -50% so the start of the second copy
+  // lands pixel-perfectly on the start of the first → seamless wraparound.
+  const looped = [...images, ...images];
 
   const gapPercent = (gapSize / cardHeight) * 100;
   const imageWithGapPercent = 100 + gapPercent;
@@ -145,20 +160,20 @@ function FlowCard({
     (cycleDuration - ((flowPosition * imageDuration) % cycleDuration)) %
     cycleDuration;
 
-  const movePercent = 100 / 3;
+  const movePercent = 50;
 
   const keyframes =
     direction === "up"
-      ? `0% { transform: translateY(0%); } 100% { transform: translateY(-${movePercent}%); }`
+      ? `0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, -${movePercent}%, 0); }`
       : direction === "down"
-        ? `0% { transform: translateY(-${movePercent}%); } 100% { transform: translateY(0%); }`
+        ? `0% { transform: translate3d(0, -${movePercent}%, 0); } 100% { transform: translate3d(0, 0, 0); }`
         : direction === "left"
-          ? `0% { transform: translateX(0%); } 100% { transform: translateX(-${movePercent}%); }`
-          : `0% { transform: translateX(-${movePercent}%); } 100% { transform: translateX(0%); }`;
+          ? `0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-${movePercent}%, 0, 0); }`
+          : `0% { transform: translate3d(-${movePercent}%, 0, 0); } 100% { transform: translate3d(0, 0, 0); }`;
 
   return (
     <div
-      className={`relative aspect-[2/3] overflow-visible rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.35)] ${className}`}
+      className={`flow-card relative aspect-[2/3] overflow-visible rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.35)] ${className}`}
       style={style}
     >
       <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/[0.06]">
@@ -167,6 +182,11 @@ function FlowCard({
           .container-${uniqueId} {
             animation: ${uniqueId} ${cycleDuration}s linear infinite;
             animation-delay: -${delayOffset}s;
+            will-change: transform;
+            backface-visibility: hidden;
+          }
+          .services-gallery:has(.flow-card:hover) .container-${uniqueId} {
+            animation-play-state: paused;
           }
         `}</style>
         <div
@@ -223,13 +243,12 @@ export function Services() {
     return () => window.removeEventListener("resize", calc);
   }, []);
 
-  const images = useMemo(() => GALLERY_IMAGES, []);
+  const cards = useMemo(() => SERVICE_CARDS, []);
 
   const { cardWidth, gap, verticalOffset, isMobile } = dimensions;
   const gapValue = `${gap}px`;
   const cardStyle: CSSProperties = { width: `${cardWidth}px` };
   const cardHeight = cardWidth * 1.5;
-  const paddingTop = Math.max(64, cardHeight * 0.28);
   const bottomBreathing = isMobile ? 28 : 44;
   const galleryHeight = `calc(${verticalOffset}px + ${cardHeight * 2}px + ${gap}px + ${bottomBreathing}px)`;
 
@@ -261,12 +280,9 @@ export function Services() {
         </h2>
       </div>
 
-      <div
-        className="relative mt-10 md:mt-12"
-        style={{ paddingTop: isMobile ? undefined : `${paddingTop}px` }}
-      >
+      <div className="relative mt-6 md:mt-8">
         <div
-          className="flex w-full min-w-max items-start"
+          className="services-gallery flex w-full min-w-max items-start"
           style={{ gap: gapValue, minHeight: galleryHeight }}
         >
           {/* LEFT EDGE — opacity 0.35 */}
@@ -279,8 +295,12 @@ export function Services() {
               transform: `translateY(-${verticalOffset * 0.2}px)`,
             }}
           >
-            <FlowCard direction="down" flowPosition={10} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
-            <FlowCard direction="down" flowPosition={11} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+            <Link href={`/services/${cards[10].slug}`} className="block" aria-label={cards[10].slug}>
+              <FlowCard direction="down" flowPosition={10} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[10].images} />
+            </Link>
+            <Link href={`/services/${cards[11].slug}`} className="block" aria-label={cards[11].slug}>
+              <FlowCard direction="down" flowPosition={11} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[11].images} />
+            </Link>
           </div>
 
           {/* LEFT INNER */}
@@ -288,8 +308,12 @@ export function Services() {
             className="flex flex-col"
             style={{ gap: gapValue, transform: `translateY(${verticalOffset}px)` }}
           >
-            <FlowCard direction="up" flowPosition={9} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
-            <FlowCard direction="up" flowPosition={8} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+            <Link href={`/services/${cards[9].slug}`} className="block" aria-label={cards[9].slug}>
+              <FlowCard direction="up" flowPosition={9} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[9].images} />
+            </Link>
+            <Link href={`/services/${cards[8].slug}`} className="block" aria-label={cards[8].slug}>
+              <FlowCard direction="up" flowPosition={8} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[8].images} />
+            </Link>
           </div>
 
           {/* CENTER ROW — 4 horizontal cards */}
@@ -301,16 +325,24 @@ export function Services() {
             }}
           >
             <div style={{ transform: `translateY(-${verticalOffset}px)` }}>
-              <FlowCard direction="left" flowPosition={7} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+              <Link href={`/services/${cards[7].slug}`} className="block" aria-label={cards[7].slug}>
+                <FlowCard direction="left" flowPosition={7} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[7].images} />
+              </Link>
             </div>
             <div>
-              <FlowCard direction="left" flowPosition={6} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+              <Link href={`/services/${cards[6].slug}`} className="block" aria-label={cards[6].slug}>
+                <FlowCard direction="left" flowPosition={6} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[6].images} />
+              </Link>
             </div>
             <div style={{ transform: `translateY(-${verticalOffset}px)` }}>
-              <FlowCard direction="left" flowPosition={5} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+              <Link href={`/services/${cards[5].slug}`} className="block" aria-label={cards[5].slug}>
+                <FlowCard direction="left" flowPosition={5} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[5].images} />
+              </Link>
             </div>
             <div>
-              <FlowCard direction="left" flowPosition={4} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+              <Link href={`/services/${cards[4].slug}`} className="block" aria-label={cards[4].slug}>
+                <FlowCard direction="left" flowPosition={4} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[4].images} />
+              </Link>
             </div>
           </div>
 
@@ -319,8 +351,12 @@ export function Services() {
             className="flex flex-col"
             style={{ gap: gapValue, transform: `translateY(${verticalOffset}px)` }}
           >
-            <FlowCard direction="down" flowPosition={2} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
-            <FlowCard direction="down" flowPosition={3} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+            <Link href={`/services/${cards[2].slug}`} className="block" aria-label={cards[2].slug}>
+              <FlowCard direction="down" flowPosition={2} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[2].images} />
+            </Link>
+            <Link href={`/services/${cards[3].slug}`} className="block" aria-label={cards[3].slug}>
+              <FlowCard direction="down" flowPosition={3} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[3].images} />
+            </Link>
           </div>
 
           {/* RIGHT EDGE — opacity 0.35 */}
@@ -333,8 +369,12 @@ export function Services() {
               transform: `translateY(-${verticalOffset * 0.2}px)`,
             }}
           >
-            <FlowCard direction="up" flowPosition={1} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
-            <FlowCard direction="up" flowPosition={0} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={images} />
+            <Link href={`/services/${cards[1].slug}`} className="block" aria-label={cards[1].slug}>
+              <FlowCard direction="up" flowPosition={1} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[1].images} />
+            </Link>
+            <Link href={`/services/${cards[0].slug}`} className="block" aria-label={cards[0].slug}>
+              <FlowCard direction="up" flowPosition={0} style={cardStyle} cardHeight={cardHeight} gapSize={gap} images={cards[0].images} />
+            </Link>
           </div>
         </div>
 

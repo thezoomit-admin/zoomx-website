@@ -1,0 +1,288 @@
+{
+  "allPage": {
+    "heading": {
+      "eyebrow": "Services",
+      "titleGradient": "What We",
+      "titleWhite": "Edit For You"
+    }
+  },
+  "navTabs": [
+    { "label": "Video Editing", "href": "/services/video-editing" },
+    { "label": "Audio Editing", "href": "/services/audio-editing" },
+    { "label": "Storyboard", "href": "/services/storyboard" },
+    { "label": "Animation", "href": "/services/animation" }
+  ],
+  "contactPhone": "866-561-4250",
+  "services": [
+    {
+      "slug": "video-editing",
+      "cardImages": [
+        "https://picsum.photos/seed/zoomx-video-editing-1/400/600",
+        "https://picsum.photos/seed/zoomx-video-editing-2/400/600",
+        "https://picsum.photos/seed/zoomx-video-editing-3/400/600",
+        "https://picsum.photos/seed/zoomx-video-editing-4/400/600",
+        "https://picsum.photos/seed/zoomx-video-editing-5/400/600",
+        "https://picsum.photos/seed/zoomx-video-editing-6/400/600"
+      ],
+      "hero": {
+        "videoSrc": "/video/intro_video.mp4",
+        "eyebrow": "Video Editing",
+        "titleGradient": "Real Estate Video",
+        "titleWhite": "Editing Services",
+        "description": "Real estate video editing services for agents, developers, and production teams built for listing performance, brand consistency, and reliable turnaround at scale.",
+        "primaryAction": { "label": "Get Started Now", "href": "#contact" },
+        "secondaryAction": { "label": "Portfolio", "href": "/portfolio" }
+      },
+      "trustedBrands": {
+        "eyebrow": "Trusted Brand",
+        "titleGradient": "Brands That",
+        "titleWhite": "Cut With Us",
+        "logos": [
+          { "name": "Atlas", "src": "/dark logo.png" },
+          { "name": "Northwind", "src": "/dark logo.png" },
+          { "name": "Vertex", "src": "/dark logo.png" },
+          { "name": "Lumen", "src": "/dark logo.png" },
+          { "name": "Harbor", "src": "/dark logo.png" },
+          { "name": "Ridge", "src": "/dark logo.png" }
+        ]
+      },
+      "details": {
+        "eyebrow": "Service Details",
+        "titleGradient": "Inside Our",
+        "titleWhite": "Video Edit Pipeline",
+        "summary": "From raw drone footage to platform-ready deliverables, every project moves through a tuned editorial pipeline — colour matched to your brand, cut for listing intent, and exported to every platform spec on day one.",
+        "image": "https://picsum.photos/seed/zoomx-detail-video-editing/900/700",
+        "items": [
+          { "title": "Listing-First Story Structure", "description": "Hook in the first 1.5s, walk-through middle, agent-tag close — proven for both portals and social." },
+          { "title": "Colour & Sky Replacement", "description": "Skies, grass, and interiors graded to a clean brand-consistent palette, even on overcast shoot days." },
+          { "title": "Loudness & Audio Polish", "description": "Voice, music, and ambient balanced to -14 LUFS so it ships clean on YouTube, Reels, and TV." },
+          { "title": "Platform-Spec Exports", "description": "9:16, 1:1, 16:9 — all aspects delivered in one pass with codecs verified against each platform spec." }
+        ],
+        "stats": [
+          { "value": "<48h", "label": "First Cut Delivered" },
+          { "value": "3", "label": "Aspect Ratios / Edit" },
+          { "value": "100%", "label": "Brand-Kit Coverage" }
+        ]
+      },
+      "gallery": {
+        "eyebrow": "Video Gallery",
+        "titleGradient": "Recent Cuts",
+        "titleWhite": "From The Bench",
+        "videos": [
+          { "id": "dQw4w9WgXcQ", "title": "Listing Walkthrough — Riverstone Heights", "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" },
+          { "id": "9bZkp7q19f0", "title": "Brand Reel — Atlas Realty", "thumbnail": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg" },
+          { "id": "kJQP7kiw5Fk", "title": "Aerial Tour — Vertex Estates", "thumbnail": "https://i.ytimg.com/vi/kJQP7kiw5Fk/maxresdefault.jpg" },
+          { "id": "RgKAFK5djSk", "title": "Founder Pitch — Northwind Living", "thumbnail": "https://i.ytimg.com/vi/RgKAFK5djSk/maxresdefault.jpg" },
+          { "id": "L_jWHffIx5E", "title": "Lifestyle Cut — Lumen Lofts", "thumbnail": "https://i.ytimg.com/vi/L_jWHffIx5E/maxresdefault.jpg" },
+          { "id": "fJ9rUzIMcZQ", "title": "Walkthrough — Harbor Residences", "thumbnail": "https://i.ytimg.com/vi/fJ9rUzIMcZQ/maxresdefault.jpg" }
+        ]
+      },
+      "cta": {
+        "eyebrow": "Start The Cut",
+        "titleGradient": "Send Us Your",
+        "titleWhite": "First Project",
+        "description": "Share the footage, the brief, and the deadline. We will reply within 24 hours with a sample plan and a flat price for the month."
+      }
+    },
+    {
+      "slug": "audio-editing",
+      "cardImages": [
+        "https://picsum.photos/seed/zoomx-audio-editing-1/400/600",
+        "https://picsum.photos/seed/zoomx-audio-editing-2/400/600",
+        "https://picsum.photos/seed/zoomx-audio-editing-3/400/600",
+        "https://picsum.photos/seed/zoomx-audio-editing-4/400/600",
+        "https://picsum.photos/seed/zoomx-audio-editing-5/400/600",
+        "https://picsum.photos/seed/zoomx-audio-editing-6/400/600"
+      ],
+      "hero": {
+        "videoSrc": "/video/intro_video.mp4",
+        "eyebrow": "Audio Editing",
+        "titleGradient": "Studio-Grade",
+        "titleWhite": "Audio Editing",
+        "description": "Clean dialogue, polished music beds, and broadcast-ready mixes for podcasts, video ads, and brand films — calibrated to platform-spec loudness on every export.",
+        "primaryAction": { "label": "Get Started Now", "href": "#contact" },
+        "secondaryAction": { "label": "Portfolio", "href": "/portfolio" }
+      },
+      "trustedBrands": {
+        "eyebrow": "Trusted Brand",
+        "titleGradient": "Brands That",
+        "titleWhite": "Sound Like Us",
+        "logos": [
+          { "name": "Atlas", "src": "/dark logo.png" },
+          { "name": "Northwind", "src": "/dark logo.png" },
+          { "name": "Vertex", "src": "/dark logo.png" },
+          { "name": "Lumen", "src": "/dark logo.png" },
+          { "name": "Harbor", "src": "/dark logo.png" },
+          { "name": "Ridge", "src": "/dark logo.png" }
+        ]
+      },
+      "details": {
+        "eyebrow": "Service Details",
+        "titleGradient": "Inside Our",
+        "titleWhite": "Audio Post Pipeline",
+        "summary": "Dialogue cleanup, music beds, sound design, and broadcast-ready mastering — built for podcasts, brand films, and ads where the sound has to feel as deliberate as the picture.",
+        "image": "https://picsum.photos/seed/zoomx-detail-audio-editing/900/700",
+        "items": [
+          { "title": "Dialogue Cleanup", "description": "Mouth clicks, breaths, room tone, and plosives removed without over-de-essing the natural voice." },
+          { "title": "Music & SFX Library", "description": "Royalty-cleared beds and effects curated to your brand tone, layered under voice with precise ducking." },
+          { "title": "Loudness Mastering", "description": "Mastered to platform-spec LUFS (Spotify, Apple, YouTube) with true-peak headroom under -1 dBTP." },
+          { "title": "Multi-Format Stems", "description": "Stereo masters, mono safety, and music/voice stems delivered on every project for future repurposing." }
+        ],
+        "stats": [
+          { "value": "<48h", "label": "Mix Turnaround" },
+          { "value": "-14", "label": "LUFS Standard" },
+          { "value": "Stem", "label": "Delivery Default" }
+        ]
+      },
+      "gallery": {
+        "eyebrow": "Audio Gallery",
+        "titleGradient": "Recent Mixes",
+        "titleWhite": "From The Booth",
+        "videos": [
+          { "id": "dQw4w9WgXcQ", "title": "Podcast Episode — Founder Series", "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" },
+          { "id": "9bZkp7q19f0", "title": "Brand Spot — Atlas Realty", "thumbnail": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg" },
+          { "id": "kJQP7kiw5Fk", "title": "Voiceover Reel — Vertex", "thumbnail": "https://i.ytimg.com/vi/kJQP7kiw5Fk/maxresdefault.jpg" }
+        ]
+      },
+      "cta": {
+        "eyebrow": "Start The Mix",
+        "titleGradient": "Send Us Your",
+        "titleWhite": "Raw Audio",
+        "description": "Drop your tracks and reference. We will return a sample mix within 48 hours — no commitment."
+      }
+    },
+    {
+      "slug": "storyboard",
+      "cardImages": [
+        "https://picsum.photos/seed/zoomx-storyboard-1/400/600",
+        "https://picsum.photos/seed/zoomx-storyboard-2/400/600",
+        "https://picsum.photos/seed/zoomx-storyboard-3/400/600",
+        "https://picsum.photos/seed/zoomx-storyboard-4/400/600",
+        "https://picsum.photos/seed/zoomx-storyboard-5/400/600",
+        "https://picsum.photos/seed/zoomx-storyboard-6/400/600"
+      ],
+      "hero": {
+        "videoSrc": "/video/intro_video.mp4",
+        "eyebrow": "Storyboard",
+        "titleGradient": "From Brief To",
+        "titleWhite": "Shot-by-Shot",
+        "description": "Pre-production storyboards that lock the vision before the camera rolls — shot lists, frame sketches, and beat breakdowns your director and editor can both build from.",
+        "primaryAction": { "label": "Get Started Now", "href": "#contact" },
+        "secondaryAction": { "label": "Portfolio", "href": "/portfolio" }
+      },
+      "trustedBrands": {
+        "eyebrow": "Trusted Brand",
+        "titleGradient": "Boards Built",
+        "titleWhite": "For These Teams",
+        "logos": [
+          { "name": "Atlas", "src": "/dark logo.png" },
+          { "name": "Northwind", "src": "/dark logo.png" },
+          { "name": "Vertex", "src": "/dark logo.png" },
+          { "name": "Lumen", "src": "/dark logo.png" },
+          { "name": "Harbor", "src": "/dark logo.png" },
+          { "name": "Ridge", "src": "/dark logo.png" }
+        ]
+      },
+      "details": {
+        "eyebrow": "Service Details",
+        "titleGradient": "Inside Our",
+        "titleWhite": "Storyboard Process",
+        "summary": "Brief, beat sheet, frames, and shot list — built so your shoot day is a yes/no walk-through instead of a creative debate. Boards your director, DP, and editor can all build from the same page.",
+        "image": "https://picsum.photos/seed/zoomx-detail-storyboard/900/700",
+        "items": [
+          { "title": "Beat Sheet From Brief", "description": "We translate your brief into a beat-by-beat narrative arc before the first frame gets sketched." },
+          { "title": "Frame-Level Sketches", "description": "Each beat is illustrated with composition, camera move, and intent — clean enough to share with the client." },
+          { "title": "Shot List & Schedule", "description": "Every frame paired with shot type, lens, and run time so your shoot day stays on schedule." },
+          { "title": "Editor Hand-Off Pack", "description": "Boards, shot list, and beat sheet exported in one bundle for the editor to cut against." }
+        ],
+        "stats": [
+          { "value": "<5d", "label": "Board Turnaround" },
+          { "value": "12+", "label": "Frames / Reel" },
+          { "value": "1", "label": "Hand-Off Bundle" }
+        ]
+      },
+      "gallery": {
+        "eyebrow": "Board Gallery",
+        "titleGradient": "Storyboards",
+        "titleWhite": "We've Shipped",
+        "videos": [
+          { "id": "dQw4w9WgXcQ", "title": "Storyboard Walkthrough — Coaching Reel", "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" },
+          { "id": "9bZkp7q19f0", "title": "Pre-Vis — Brand Film", "thumbnail": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg" }
+        ]
+      },
+      "cta": {
+        "eyebrow": "Lock The Vision",
+        "titleGradient": "Send Us The",
+        "titleWhite": "Brief",
+        "description": "Share the concept and goals. We will turn it into a shot-by-shot board your shoot day can run on."
+      }
+    },
+    {
+      "slug": "animation",
+      "cardImages": [
+        "https://picsum.photos/seed/zoomx-animation-1/400/600",
+        "https://picsum.photos/seed/zoomx-animation-2/400/600",
+        "https://picsum.photos/seed/zoomx-animation-3/400/600",
+        "https://picsum.photos/seed/zoomx-animation-4/400/600",
+        "https://picsum.photos/seed/zoomx-animation-5/400/600",
+        "https://picsum.photos/seed/zoomx-animation-6/400/600"
+      ],
+      "hero": {
+        "videoSrc": "/video/intro_video.mp4",
+        "eyebrow": "Animation",
+        "titleGradient": "Brand-Calibrated",
+        "titleWhite": "Motion Design",
+        "description": "Logo reveals, kinetic typography, and product motion — built on your brand kit so every frame ships on-brand without rounds of color and tone notes.",
+        "primaryAction": { "label": "Get Started Now", "href": "#contact" },
+        "secondaryAction": { "label": "Portfolio", "href": "/portfolio" }
+      },
+      "trustedBrands": {
+        "eyebrow": "Trusted Brand",
+        "titleGradient": "Motion Built",
+        "titleWhite": "For These Teams",
+        "logos": [
+          { "name": "Atlas", "src": "/dark logo.png" },
+          { "name": "Northwind", "src": "/dark logo.png" },
+          { "name": "Vertex", "src": "/dark logo.png" },
+          { "name": "Lumen", "src": "/dark logo.png" },
+          { "name": "Harbor", "src": "/dark logo.png" },
+          { "name": "Ridge", "src": "/dark logo.png" }
+        ]
+      },
+      "details": {
+        "eyebrow": "Service Details",
+        "titleGradient": "Inside Our",
+        "titleWhite": "Motion Design Process",
+        "summary": "Logo reveals, kinetic typography, and product motion built on your brand kit — every easing curve, weight, and palette calibrated so the motion feels native to your identity, not borrowed.",
+        "image": "https://picsum.photos/seed/zoomx-detail-animation/900/700",
+        "items": [
+          { "title": "Brand-Kit Calibration", "description": "Type, palette, easing curves and grid sourced from your brand kit before the first keyframe gets dropped." },
+          { "title": "Kinetic Typography", "description": "Headline, sub, and tag treatments built as reusable comps for ads, reels, and explainer drops." },
+          { "title": "Logo Reveal Library", "description": "Three-variant logo reveal set per project — short, medium, and signature — for any placement length." },
+          { "title": "Layered Project Files", "description": "Editable AE / Lottie files delivered with every export so your team can re-time without coming back to us." }
+        ],
+        "stats": [
+          { "value": "<7d", "label": "First Pass" },
+          { "value": "AE / Lottie", "label": "Source Files" },
+          { "value": "3", "label": "Reveal Variants" }
+        ]
+      },
+      "gallery": {
+        "eyebrow": "Motion Gallery",
+        "titleGradient": "Animation",
+        "titleWhite": "From The Reel",
+        "videos": [
+          { "id": "dQw4w9WgXcQ", "title": "Logo Reveal — Atlas Realty", "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" },
+          { "id": "9bZkp7q19f0", "title": "Kinetic Type — SaaS Explainer", "thumbnail": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg" },
+          { "id": "kJQP7kiw5Fk", "title": "Product Motion — App Launch", "thumbnail": "https://i.ytimg.com/vi/kJQP7kiw5Fk/maxresdefault.jpg" }
+        ]
+      },
+      "cta": {
+        "eyebrow": "Start The Motion",
+        "titleGradient": "Send Us Your",
+        "titleWhite": "Brand Kit",
+        "description": "Share your brand kit and target asset. We will return a motion test within 48 hours, calibrated to your palette."
+      }
+    }
+  ]
+}
