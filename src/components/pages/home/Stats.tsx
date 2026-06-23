@@ -1,8 +1,16 @@
 "use client";
 
 import NumberFlow, { useCanAnimate } from "@number-flow/react";
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 
+import { Image } from "@/components/shared/Image";
 import { cn } from "@/lib/utils";
 
 /**
@@ -158,25 +166,28 @@ function computeSectionScrollProgress(el: HTMLElement): number {
   return clamp01((start - rect.top) / (start - end));
 }
 
+function subscribeViewport(callback: () => void) {
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+}
+
+function getViewportTierSnapshot(): ViewportTier {
+  const w = window.innerWidth;
+  if (w >= 1024) return "lg";
+  if (w >= 768) return "md";
+  return "mobile";
+}
+
+function getViewportTierServerSnapshot(): ViewportTier {
+  return "mobile";
+}
+
 function useViewportTier(): ViewportTier {
-  const [tier, setTier] = useState<ViewportTier>("mobile");
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const update = () => {
-      const w = window.innerWidth;
-      if (w >= 1024) setTier("lg");
-      else if (w >= 768) setTier("md");
-      else setTier("mobile");
-    };
-
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  return tier;
+  return useSyncExternalStore(
+    subscribeViewport,
+    getViewportTierSnapshot,
+    getViewportTierServerSnapshot,
+  );
 }
 
 function useScrollProgress(
@@ -189,21 +200,83 @@ function useScrollProgress(
     const el = ref.current;
     if (!el) return;
 
-    if (
+    const reduced =
       typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setProgress(1);
-      return;
-    }
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let raf = 0;
     const tick = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setProgress(compute(el)));
+      raf = requestAnimationFrame(() => setProgress(reduced ? 1 : compute(el)));
     };
 
     tick();
+
+    if (reduced) {
+      return () => cancelAnimationFrame(raf);
+    }
+
+    window.addEventListener("scroll", tick, { passive: true });
+    window.addEventListener("resize", tick);
+    const ro = new ResizeObserver(tick);
+    ro.observe(el);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", tick);
+      window.removeEventListener("resize", tick);
+      ro.disconnect();
+    };
+  }, [ref, compute]);
+
+  return progress;
+}
+
+function useSectionStats(ref: RefObject<HTMLElement | null>): {
+  sectionProgress: number;
+  maxReveal: number[];
+} {
+  const [state, setState] = useState(() => ({
+    sectionProgress: 0,
+    maxReveal: STATS.map(() => 0),
+  }));
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let raf = 0;
+    const tick = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const progress = reduced ? 1 : computeSectionScrollProgress(el);
+        setState((prev) => {
+          let changed = prev.sectionProgress !== progress;
+          const nextMax = prev.maxReveal.map((m, i) => {
+            const r = smoothstep(0.48 + i * 0.07, 0.72 + i * 0.07, progress);
+            if (r > m) {
+              changed = true;
+              return r;
+            }
+            return m;
+          });
+          return changed
+            ? { sectionProgress: progress, maxReveal: nextMax }
+            : prev;
+        });
+      });
+    };
+
+    tick();
+
+    if (reduced) {
+      return () => cancelAnimationFrame(raf);
+    }
+
     window.addEventListener("scroll", tick, { passive: true });
     window.addEventListener("resize", tick);
     const ro = new ResizeObserver(tick);
@@ -217,7 +290,7 @@ function useScrollProgress(
     };
   }, [ref]);
 
-  return progress;
+  return state;
 }
 
 /** Line-by-line white reveal while scrolling; all lines white once headline is settled. */
@@ -241,29 +314,13 @@ export function Stats() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headlineRef = useRef<HTMLDivElement | null>(null);
   const headlineProgress = useScrollProgress(headlineRef, computeHeadlineScrollProgress);
-  const sectionProgress = useScrollProgress(sectionRef, computeSectionScrollProgress);
   const cornerProgress = useScrollProgress(sectionRef, computeCornerImageProgress);
+  /** sectionProgress + latched 0–1 per stat (counts never run backwards on scroll-up). */
+  const { sectionProgress, maxReveal } = useSectionStats(sectionRef);
   const canAnimate = useCanAnimate({ respectMotionPreference: true });
 
   const viewportTier = useViewportTier();
   const lineMixes = HEADLINE_LINES.map((_, i) => lineWhiteMix(i, headlineProgress));
-
-  /** Latched 0–1 progress per stat so counts never run backwards on scroll-up. */
-  const [maxReveal, setMaxReveal] = useState<number[]>(() => STATS.map(() => 0));
-  useEffect(() => {
-    setMaxReveal((prev) => {
-      let changed = false;
-      const next = prev.map((m, i) => {
-        const r = smoothstep(0.48 + i * 0.07, 0.72 + i * 0.07, sectionProgress);
-        if (r > m) {
-          changed = true;
-          return r;
-        }
-        return m;
-      });
-      return changed ? next : prev;
-    });
-  }, [sectionProgress]);
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden py-8 md:py-10 border-y">
@@ -304,10 +361,12 @@ export function Stats() {
                 )}
                 style={style}
               >
-                <img
-                  loading="lazy"
+                <Image
                   src={img.src}
                   alt={img.alt}
+                  width={200}
+                  height={200}
+                  sizes="(min-width: 1024px) 200px, (min-width: 768px) 120px, 88px"
                   className="h-auto w-full object-cover"
                 />
               </div>

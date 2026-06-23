@@ -4,6 +4,7 @@ import { motion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Image } from "@/components/shared/Image";
 import { toEmbedUrl, toVideoPreviewUrl, toWatchUrl } from "@/lib/embed-url";
 import { cn } from "@/lib/utils";
 
@@ -123,7 +124,8 @@ function getPreviewSrc(item: Testimonial): string {
 }
 
 function preloadPreview(src: string) {
-  const img = new Image();
+  if (typeof window === "undefined") return;
+  const img = new window.Image();
   img.src = src;
 }
 function ShortsPlayIcon({ className }: { className?: string }) {
@@ -191,6 +193,7 @@ function TestimonialCard({ item, index, activeIndex, totalCards, layout }: Testi
         className="relative mx-auto aspect-9/16 h-full w-auto max-w-full overflow-hidden rounded-[20px] border border-[#353333] bg-[#121213] shadow-2xl md:rounded-2xl"
         animate={{ pointerEvents: isActive ? "auto" : "none" }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element -- needs runtime onError fallback for YouTube CDN 404s */}
         <img
           src={previewSrc}
           alt={`${item.name} testimonial preview`}
@@ -400,9 +403,11 @@ export function Testimonials() {
           &ldquo;{current.quote}&rdquo;
         </p>
         <div className="mt-6 flex items-center justify-center gap-3">
-          <img
+          <Image
             src={current.avatar}
             alt={current.name}
+            width={40}
+            height={40}
             loading="lazy"
             className="h-10 w-10 rounded-full object-cover"
           />

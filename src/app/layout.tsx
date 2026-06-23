@@ -1,6 +1,29 @@
 import type { Metadata } from "next";
+import { Inter, Poppins, Syne } from "next/font/google";
+
 import { Navbar } from "@/components/pages/home/Navbar";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-syne-next",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ZOOMX — Get More Leads Using Quality Video Content",
@@ -24,15 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${poppins.variable} ${syne.variable}`}
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         <Navbar />
         {children}

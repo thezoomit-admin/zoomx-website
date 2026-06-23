@@ -1,5 +1,7 @@
 "use client";
 
+import { Image } from "@/components/shared/Image";
+
 const clients = [
   {
     name: "Anthony's World",
@@ -41,8 +43,12 @@ const clients = [
 function Card({ c }: { c: (typeof clients)[number] }) {
   return (
     <div className="group relative w-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-card/50 backdrop-blur sm:w-[320px]">
-      <div className="aspect-[4/5] overflow-hidden">
-        <img src={c.img} alt={c.name} className="h-full w-full object-cover" />
+      <div className="relative aspect-4/5 overflow-hidden">
+        <Image
+          src={c.img}
+          alt={c.name}
+          sizes="(min-width: 640px) 320px, 280px"
+        />
       </div>
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-5">
         <h3 className="font-display text-lg font-bold">{c.name}</h3>

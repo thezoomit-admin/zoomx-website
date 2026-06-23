@@ -5,6 +5,7 @@ import { ArrowUpRight, FileText } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 
 import { PostConfetti } from "@/components/pages/home/PostConfetti";
+import { Image } from "@/components/shared/Image";
 import { cn } from "@/lib/utils";
 
 // const GLOW = "/67b5dd36b3452df31baf9345_Glow.avif";
@@ -221,10 +222,11 @@ function ProcessGlow({ children, className }: { children: ReactNode; className?:
         className,
       )}
     >
-      <img
+      <Image
         src={GLOW}
         alt=""
-        aria-hidden
+        width={520}
+        height={520}
         className="pointer-events-none absolute left-1/2 top-1/2 h-[88%] w-[88%] max-w-[520px] -translate-x-1/2 -translate-y-1/2 object-contain"
       />
       <div
@@ -256,24 +258,32 @@ function IdeationVisual() {
   return (
     <ProcessGlow>
       <div className="relative mx-auto aspect-[4/3] w-full max-w-[400px]">
-        <img
+        <Image
           alt="coaches"
           src="/images/06.png"
+          width={52}
+          height={52}
           className="absolute left-[13%] top-[32%] z-[5] h-[52px] w-auto rotate-[9deg] rounded-full shadow-[0_9px_20px_-2px_rgba(102, 39, 107, 0.57)] md:h-[50px]"
         />
-        <img
+        <Image
           src="/images/08.png"
           alt="personal brand"
+          width={52}
+          height={52}
           className="absolute left-[48%] top-[28%] z-[4] h-[52px] w-auto -rotate-[20deg] rounded-full shadow-[0_9px_20px_-2px_rgba(102, 39, 107, 0.57)] md:h-[50px]"
         />
-        <img
+        <Image
           alt="ecommerce"
           src="/images/07.png"
+          width={52}
+          height={52}
           className="absolute left-[8%] top-[58%] z-[3] h-[52px] w-auto -rotate-[18deg] rounded-full shadow-[0_9px_20px_-2px_rgba(102, 39, 107, 0.57)] md:h-[50px]"
         />
-        <img
+        <Image
           src="/images/09.png"
           alt="fashion"
+          width={52}
+          height={52}
           className="absolute left-[50%] top-[56%] z-[1] h-[52px] w-auto rotate-[18deg] rounded-full shadow-[0_9px_20px_-2px_rgba(102, 39, 107, 0.57)] md:h-[50px]"
         />
       </div>
@@ -354,9 +364,11 @@ function ScriptingVisual() {
         />
         <div className="relative z-[4] flex w-full max-w-full flex-row items-start justify-center gap-3 sm:gap-4 lg:contents">
           <div className="relative w-[min(46%,200px)] shrink-0 lg:absolute lg:left-[4%] lg:top-[6%] lg:w-[46%] lg:max-w-[185px]">
-            <img
+            <Image
               src="/67b6daa5744c735ff068b073_input%20box.png"
               alt=""
+              width={185}
+              height={60}
               className="pointer-events-none w-full select-none"
             />
             <div
@@ -393,18 +405,22 @@ function ScriptingVisual() {
             </div>
           </div>
 
-          <img
+          <Image
             src="/images/11.png"
             alt=""
+            width={350}
+            height={350}
             className="relative min-w-0 flex-1 max-w-[min(54%,280px)] object-contain object-left-top lg:absolute lg:right-0 lg:top-[4%] lg:w-[62%] lg:max-w-[350px] lg:flex-none"
           />
         </div>
 
         <div className="relative z-[2] w-[min(92%,350px)] lg:absolute lg:bottom-[2%] lg:left-1/2 lg:w-[min(90%,350px)] lg:-translate-x-1/2">
           <div className="relative w-full">
-            <img
+            <Image
               src="/images/05.png"
               alt=""
+              width={350}
+              height={200}
               className="block w-full shadow-[0_-5px_24px_-12px_rgba(102,39,107,0.5)]"
             />
             <div
@@ -424,27 +440,35 @@ function EditingVisual() {
       <div className="relative mx-auto aspect-[5/4] w-full  md:max-w-[440px] sm:min-h-[400px] lg:min-h-0">
         <div className="absolute bottom-[-1%] left-1/2 z-[6] w-full md:w-[min(100%,420px)] max-w-[95%] -translate-x-1/2 lg:left-[20%] lg:w-[300px] lg:max-w-[72%] lg:translate-x-0">
           <div className="relative w-full">
-            <img
+            <Image
               src="/images/03.png"
               alt=""
+              width={420}
+              height={300}
               className="block h-auto w-full max-h-[min(420px,68vh)] object-contain lg:max-h-[300px]"
             />
           </div>
         </div>
-        <img
+        <Image
           src="/images/16.png"
           alt=""
-          className="absolute left-[25%] top-[14%] z-[3] h-[200px] shadow-[0_-5px_24px_-12px_rgba(102,39,107,0.5)]"
+          width={200}
+          height={200}
+          className="absolute left-[25%] top-[14%] z-[3] h-[200px] w-auto shadow-[0_-5px_24px_-12px_rgba(102,39,107,0.5)]"
         />
-        <img
+        <Image
           src="/images/04.png"
           alt=""
-          className="absolute left-[38%] top-[18%] lg:top-[22%] z-[3] w-[38%] max-w-[120px]"
+          width={120}
+          height={120}
+          className="absolute left-[38%] top-[18%] lg:top-[22%] z-[3] w-[38%] max-w-[120px] h-auto"
         />
-        <img
+        <Image
           src="/images/02.png"
           alt=""
-          className="absolute right-[20%] top-[30%] lg:top-[44%] z-[3] w-[26%] max-w-[80px]"
+          width={80}
+          height={80}
+          className="absolute right-[20%] top-[30%] lg:top-[44%] z-[3] w-[26%] max-w-[80px] h-auto"
         />
       </div>
     </ProcessGlow>
@@ -475,25 +499,26 @@ function ThumbnailVisual() {
               transformStyle: "preserve-3d",
             }}
           >
-            <img
+            <Image
               src="/67debd0be7a053c01e6bb522_Iman%20gadzhi.avif"
               loading="lazy"
               alt=""
+              width={300}
+              height={200}
               className="relative z-[1] h-[200px] max-h-[200px] w-full rounded-[20px] object-cover"
             />
 
-            <img
+            <Image
               src="/68aab8c5bd9a46b617d22132_image%202_cmp.avif"
               loading="lazy"
               alt=""
+              width={300}
+              height={200}
               className="relative z-[2] h-[200px] max-h-[200px] w-full rounded-[20px] object-cover -rotate-[12deg]"
             />
           </div>
 
-          <img
-            src="/67b707fc23c7175ae432a4ca_Thumbnail%20icon.avif"
-            loading="lazy"
-            alt=""
+          <div
             className="absolute top-[18%] z-[4] w-[100px]"
             style={{
               left: `${k.iconLeft}%`,
@@ -501,7 +526,16 @@ function ThumbnailVisual() {
               transform: `translate3d(-50%, ${k.iconY}px, 0px) scale3d(1, 1, 1) rotateZ(12deg)`,
               transformStyle: "preserve-3d",
             }}
-          />
+          >
+            <Image
+              src="/67b707fc23c7175ae432a4ca_Thumbnail%20icon.avif"
+              loading="lazy"
+              alt=""
+              width={100}
+              height={100}
+              className="w-full h-auto"
+            />
+          </div>
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/3 md:left-1/2 top-1/2 z-0 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-90"
@@ -511,11 +545,12 @@ function ThumbnailVisual() {
             }}
           />
 
-          <img
+          <Image
             src={GLOW}
             loading="lazy"
             alt=""
-            aria-hidden
+            width={420}
+            height={420}
             className="pointer-events-none absolute left-1/3 md:left-1/2 top-1/2 z-0 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2"
           />
         </div>
@@ -541,25 +576,33 @@ function PostVisual() {
             filter: "blur(28px)",
           }}
         />
-        <img
+        <Image
           src="/images/17.png"
           alt="10x View Increased"
-          className="absolute left-1/2 top-1/2 z-[6] w-[min(72%,280px)] -translate-x-1/2 -translate-y-1/2"
+          width={280}
+          height={280}
+          className="absolute left-1/2 top-1/2 z-[6] w-[min(72%,280px)] h-auto -translate-x-1/2 -translate-y-1/2"
         />
-        <img
+        <Image
           src="/images/14.png"
           alt="Instagram"
-          className="absolute left-[13%] top-[12%] z-[4] w-[min(22%,90px)] opacity-70"
+          width={90}
+          height={90}
+          className="absolute left-[13%] top-[12%] z-[4] w-[min(22%,90px)] h-auto opacity-70"
         />
-        <img
+        <Image
           src="/images/13.png"
           alt="YouTube"
-          className="absolute right-[6%] top-[17%] z-[4] w-[min(35%,130px)] opacity-70"
+          width={130}
+          height={130}
+          className="absolute right-[6%] top-[17%] z-[4] w-[min(35%,130px)] h-auto opacity-70"
         />
-        <img
+        <Image
           src="/images/12.png"
           alt="TikTok"
-          className="absolute bottom-[20%] left-[13%] z-[3] w-[min(20%,82px)] opacity-70 "
+          width={82}
+          height={82}
+          className="absolute bottom-[20%] left-[13%] z-[3] w-[min(20%,82px)] h-auto opacity-70 "
         />
         <PostConfetti />
       </div>

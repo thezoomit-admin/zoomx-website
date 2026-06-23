@@ -5,7 +5,7 @@ import { useState } from "react";
 import { BlogCard, type BlogPost } from "@/components/card/BlogCard";
 import { Pagination } from "@/components/shared/Pagination";
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 9;
 
 export function BlogPostsList({ posts }: { posts: BlogPost[] }) {
   const [currentPage, setCurrentPage] = useState(1);
