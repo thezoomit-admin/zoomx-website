@@ -22,7 +22,7 @@ const linkColumns = [
       { label: "Quality", href: "/quality" },
       { label: "Benefits", href: "/benefits" },
       { label: "Blog", href: "/blog" },
-      { label: "Portfolio", href: "/#work" },
+      { label: "Portfolio", href: "/portfolio" },
     ],
   },
 ] as const;
