@@ -4,6 +4,7 @@ import { ArrowUpRight, Check, X } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { Image } from "@/components/shared/Image";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import { PROCESS_GLOW_BG } from "./Process";
@@ -145,13 +146,10 @@ export function WhyUs() {
         </div>
 
         <div className="mt-10 flex justify-center md:mt-12">
-          <a
-            href="#book-a-call"
-            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-[#5c2e9d] to-[#7c499d] px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)] transition-all duration-200 hover:from-[#4c2583] hover:to-[#6c3e89]"
-          >
+          <Button href="#book-a-call" variant="brand" size="cta">
             Book A 30-Min Call
-            <ArrowUpRight className="h-4 w-4 shrink-0" />
-          </a>
+            <ArrowUpRight />
+          </Button>
         </div>
       </div>
     </section>

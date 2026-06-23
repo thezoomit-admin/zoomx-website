@@ -44,8 +44,8 @@ export function CtaSection({
   secondaryAction,
 }: CtaSectionProps) {
   return (
-    <section className="relative pt-8 md:pt-10 pb-16 md:pb-20">
-      <div className="app-container">
+    <section className="relative">
+      <div className="">
         <motion.div
           variants={containerVariants}
           initial="hidden"

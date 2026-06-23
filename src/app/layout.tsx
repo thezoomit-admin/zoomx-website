@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins, Syne } from "next/font/google";
 
 import { Navbar } from "@/components/pages/home/Navbar";
+import { Footer } from "@/components/pages/home/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

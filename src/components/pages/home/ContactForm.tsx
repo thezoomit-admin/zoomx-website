@@ -17,6 +17,7 @@ import {
 import { useRef, useState } from "react";
 import { z } from "zod";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -684,33 +685,10 @@ export function ContactForm() {
               <p className="text-[13px] text-[#ffffff80]">
                 We&apos;ll never share your information.
               </p>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                className="group relative inline-flex h-12 cursor-pointer items-center gap-2 overflow-hidden rounded-lg px-7 font-syne text-[14px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)]"
-                style={{
-                  background:
-                    "linear-gradient(102deg, #5c2e9d 8%, #7c499d 48%, #a888c8 92%)",
-                }}
-              >
-                <span className="relative z-10">
-                  {submitted ? "Message Sent" : "Send Message"}
-                </span>
-                <motion.span
-                  aria-hidden
-                  animate={{ x: submitted ? 4 : 0 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 18 }}
-                  className="relative z-10"
-                >
-                  <Send className="h-4 w-4" />
-                </motion.span>
-                <span
-                  aria-hidden
-                  className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-                />
-              </motion.button>
+              <Button type="submit" variant="brand" size="cta">
+                {submitted ? "Message Sent" : "Send Message"}
+                <Send />
+              </Button>
             </motion.div>
           </form>
         </motion.div>

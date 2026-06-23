@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Image } from "@/components/shared/Image";
+import { Button } from "@/components/ui/button";
 import { toEmbedUrl, toVideoPreviewUrl, toWatchUrl } from "@/lib/embed-url";
 import { cn } from "@/lib/utils";
 
@@ -239,14 +240,15 @@ function TestimonialCard({ item, index, activeIndex, totalCards, layout }: Testi
         )}
 
         {showPlayButton && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={handlePlay}
             aria-label={`Play ${item.name} testimonial video`}
-            className="absolute inset-0 z-[15] flex cursor-pointer items-center justify-center bg-black/20 transition-colors hover:bg-black/30"
+            className="absolute inset-0 z-[15] h-auto w-auto rounded-none bg-black/20 p-0 transition-colors hover:bg-black/30"
           >
             <ShortsPlayIcon className={cn("drop-shadow-lg", playClass)} />
-          </button>
+          </Button>
         )}
 
         {showIframe && !iframeReady && (
@@ -361,37 +363,43 @@ export function Testimonials() {
         </div>
 
         <motion.div className="mt-6 flex items-center justify-center gap-6" initial={false}>
-          <button
+          <Button
             type="button"
+            variant="brandOutline"
             onClick={() => changeSlide(activeIndex - 1)}
             aria-label="Previous testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/4 text-white/80 backdrop-blur-sm transition-colors hover:border-white/25 hover:bg-white/10 sm:h-12 sm:w-12"
+            className="h-11 w-11 rounded-full bg-white/4 sm:h-12 sm:w-12"
           >
             <ChevronLeft className="h-5 w-5" />
-          </button>
+          </Button>
 
           <motion.div className="flex items-center justify-center gap-2">
             {items.map((_, index) => (
-              <button
+              <Button
                 key={index}
                 type="button"
+                variant="ghost"
                 onClick={() => changeSlide(index)}
                 aria-label={`Go to testimonial ${index + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeIndex === index ? "w-6 bg-white" : "w-2 bg-white/25 hover:bg-white/40"
-                }`}
+                className={cn(
+                  "h-2 rounded-full p-0 transition-all duration-300",
+                  activeIndex === index
+                    ? "w-6 bg-white hover:bg-white"
+                    : "w-2 bg-white/25 hover:bg-white/40",
+                )}
               />
             ))}
           </motion.div>
 
-          <button
+          <Button
             type="button"
+            variant="brandOutline"
             onClick={() => changeSlide(activeIndex + 1)}
             aria-label="Next testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/4 text-white/80 backdrop-blur-sm transition-colors hover:border-white/25 hover:bg-white/10 sm:h-12 sm:w-12"
+            className="h-11 w-11 rounded-full bg-white/4 sm:h-12 sm:w-12"
           >
             <ChevronRight className="h-5 w-5" />
-          </button>
+          </Button>
         </motion.div>
       </motion.div>
 

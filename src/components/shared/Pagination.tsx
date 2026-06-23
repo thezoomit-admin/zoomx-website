@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export type PaginationProps = {
@@ -52,13 +53,11 @@ export function Pagination({
     onPageChange(page as number);
   };
 
-  const baseBtn =
-    "flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-semibold transition-all duration-200";
-  const idleBtn =
-    "cursor-pointer border-white/15 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-95";
-  const disabledBtn = "cursor-not-allowed border-white/8 bg-white/2 text-white/30";
+  const navBtn =
+    "h-10 w-10 rounded-lg border border-white/15 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10 hover:text-white active:scale-95 disabled:bg-white/2 disabled:text-white/30 disabled:border-white/8";
+  const pageBtn = navBtn;
   const activeBtn =
-    "scale-105 cursor-pointer border-transparent bg-linear-to-r from-[#5c2e9d] to-[#7c499d] text-white shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)]";
+    "h-10 w-10 rounded-lg scale-105 from-[#5c2e9d] to-[#7c499d]";
 
   return (
     <div
@@ -70,15 +69,16 @@ export function Pagination({
       {totalPages > 1 ? (
         <div className="flex items-center gap-2">
           {showPrevNext && (
-            <button
+            <Button
               type="button"
+              variant="outline"
               aria-label="Previous page"
               disabled={currentPage === 1}
               onClick={() => handlePageChange(currentPage - 1)}
-              className={cn(baseBtn, currentPage === 1 ? disabledBtn : idleBtn)}
+              className={navBtn}
             >
               <ChevronLeft className="h-5 w-5" />
-            </button>
+            </Button>
           )}
 
           <div className="flex items-center gap-2">
@@ -92,30 +92,32 @@ export function Pagination({
                   ...
                 </span>
               ) : (
-                <button
+                <Button
                   key={`page-${page}`}
                   type="button"
+                  variant={page === currentPage ? "brand" : "outline"}
                   aria-label={`Go to page ${page}`}
                   aria-current={page === currentPage ? "page" : undefined}
                   onClick={() => handlePageChange(page)}
-                  className={cn(baseBtn, page === currentPage ? activeBtn : idleBtn)}
+                  className={page === currentPage ? activeBtn : pageBtn}
                 >
                   {page}
-                </button>
+                </Button>
               ),
             )}
           </div>
 
           {showPrevNext && (
-            <button
+            <Button
               type="button"
+              variant="outline"
               aria-label="Next page"
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
-              className={cn(baseBtn, currentPage === totalPages ? disabledBtn : idleBtn)}
+              className={navBtn}
             >
               <ChevronRight className="h-5 w-5" />
-            </button>
+            </Button>
           )}
         </div>
       ) : null}

@@ -1,11 +1,10 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { Image } from "@/components/shared/Image";
-
-const ARROW_ICON =
-  "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/67970745c860818130bc7fd6_Arrow_Up_Right.svg";
+import { Button } from "@/components/ui/button";
 
 const HERO_VIDEO_SRC = "/video/intro_video.mp4";
 
@@ -174,22 +173,10 @@ export function Hero() {
 
               <div className="flex w-full flex-col items-center justify-center">
                 <div className="flex w-full justify-center gap-[15px] pt-10 pb-8 max-md:pb-[15px] max-md:pt-5">
-                  <a
-                    href="#book-a-call"
-                    className="inline-flex max-w-fit flex-row flex-wrap items-center justify-start gap-[15px] rounded-xl bg-gradient-to-r from-[#5c2e9d] to-[#7c499d] px-[25px] py-3.5 text-center text-sm font-medium capitalize text-white no-underline transition-[opacity,box-shadow] duration-200 hover:opacity-[0.85] hover:shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)] max-md:w-fit max-md:justify-center"
-                  >
-                    <span>Book a call</span>
-                    <span className="relative flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[20px] bg-[#a8a9cf3b]">
-                      <Image
-                        src={ARROW_ICON}
-                        loading="lazy"
-                        alt=""
-                        width={26}
-                        height={26}
-                        className="h-full w-full p-2"
-                      />
-                    </span>
-                  </a>
+                  <Button href="#book-a-call" variant="brand" size="cta">
+                    Book A Call
+                    <ArrowUpRight />
+                  </Button>
                 </div>
               </div>
             </div>
