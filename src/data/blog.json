@@ -1,0 +1,72 @@
+{
+  "heading": {
+    "eyebrow": "From Our Blog",
+    "titleGradient": "Insights, Tips &",
+    "titleWhite": "Behind The Scenes"
+  },
+  "allPage": {
+    "heading": {
+      "eyebrow": "All Posts",
+      "titleGradient": "Stories From",
+      "titleWhite": "The Cutting Room"
+    }
+  },
+  "showMoreLabel": "Show More Blogs",
+  "showMoreHref": "/blog",
+  "posts": [
+    {
+      "id": "01",
+      "title": "AI Video Editing vs Professional Editors: When Technology Isn’t Enough",
+      "subtitle": "Where automated tools fall short and why a human editor still owns the final cut for brands that care about story.",
+      "cover": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "February 17, 2026",
+      "href": "#blog-01"
+    },
+    {
+      "id": "02",
+      "title": "Short-Form Storytelling: How To Hook Viewers In The First 3 Seconds",
+      "subtitle": "Patterns we use on every Reel and Short to stop the scroll, hold attention, and convert passive viewers into followers.",
+      "cover": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "March 04, 2026",
+      "href": "#blog-02"
+    },
+    {
+      "id": "03",
+      "title": "From Raw Footage To Viral Reel: Inside Our Creator Workflow",
+      "subtitle": "A walk-through of the exact pipeline our editors follow — ingest, selects, pacing, sound design, and delivery.",
+      "cover": "https://images.unsplash.com/photo-1601933973783-43cf8a7d4c5f?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "April 11, 2026",
+      "href": "#blog-03"
+    },
+    {
+      "id": "04",
+      "title": "Why Sound Design Wins More Battles Than Color Grading",
+      "subtitle": "Music, ambience, and SFX do most of the emotional heavy lifting — here is how we layer them on every cut.",
+      "cover": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "April 28, 2026",
+      "href": "#blog-04"
+    },
+    {
+      "id": "05",
+      "title": "Building A Studio Pipeline That Scales Past 100 Videos A Month",
+      "subtitle": "The operations layer behind a high-volume editing studio — task boards, review loops, and the hires that broke our process.",
+      "cover": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "May 09, 2026",
+      "href": "#blog-05"
+    },
+    {
+      "id": "06",
+      "title": "Working With Founders Who Don’t Know What They Want",
+      "subtitle": "A field guide for editors handling vague briefs — frameworks we use to extract clarity without slowing the project down.",
+      "cover": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+      "author": "admin",
+      "date": "May 22, 2026",
+      "href": "#blog-06"
+    }
+  ]
+}

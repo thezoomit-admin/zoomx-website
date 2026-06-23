@@ -1,0 +1,126 @@
+{
+  "heading": {
+    "eyebrow": "From Our Blog",
+    "titleGradient": "Insights, Tips &",
+    "titleWhite": "Behind The Scenes"
+  },
+  "allPage": {
+    "heading": {
+      "eyebrow": "Case Studies",
+      "titleGradient": "Real Brands,",
+      "titleWhite": "Real Outcomes"
+    }
+  },
+  "showMoreLabel": "See More Case Studies",
+  "showMoreHref": "/case-study",
+  "cases": [
+    {
+      "index": "01",
+      "quote": {
+        "lead": "Built a Shorts pipeline that turned a tiny audience",
+        "punch": "into a 7-figure coaching engine in 90 days"
+      },
+      "author": {
+        "name": "Spencer Pawliw",
+        "role": "Coaching",
+        "avatar": "https://i.pravatar.cc/80?img=12"
+      },
+      "stats": [
+        { "value": "+250%", "label": "Revenue Growth" },
+        { "value": "$350K", "label": "Monthly Revenue" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    },
+    {
+      "index": "02",
+      "quote": {
+        "lead": "Replaced paid social with a relentless organic Reel cadence",
+        "punch": "same volume, half the CAC"
+      },
+      "author": {
+        "name": "Northwind Apparel",
+        "role": "E-commerce",
+        "avatar": "https://i.pravatar.cc/80?img=33"
+      },
+      "stats": [
+        { "value": "-52%", "label": "Ad Spend" },
+        { "value": "3.4M", "label": "Organic Views" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    },
+    {
+      "index": "03",
+      "quote": {
+        "lead": "Daily founder-led shorts and demos",
+        "punch": "built a community around a brand-new dev tool"
+      },
+      "author": {
+        "name": "Linear Studio",
+        "role": "SaaS",
+        "avatar": "https://i.pravatar.cc/80?img=15"
+      },
+      "stats": [
+        { "value": "+80K", "label": "New Followers" },
+        { "value": "12x", "label": "Inbound Demos" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    },
+    {
+      "index": "04",
+      "quote": {
+        "lead": "Restructured the format and doubled the cadence,",
+        "punch": "turning a vlog channel into a 7-figure brand"
+      },
+      "author": {
+        "name": "Nick Barner",
+        "role": "Creator",
+        "avatar": "https://i.pravatar.cc/80?img=51"
+      },
+      "stats": [
+        { "value": "+4x", "label": "Watch Time" },
+        { "value": "$1.2M", "label": "Annual ARR" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    },
+    {
+      "index": "05",
+      "quote": {
+        "lead": "Designed a studio workflow that lets a 4-person team",
+        "punch": "ship 100+ Reels every month, on brand"
+      },
+      "author": {
+        "name": "Pillar Creative",
+        "role": "Agency",
+        "avatar": "https://i.pravatar.cc/80?img=68"
+      },
+      "stats": [
+        { "value": "100+", "label": "Reels / Month" },
+        { "value": "-38%", "label": "Edit Time" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    },
+    {
+      "index": "06",
+      "quote": {
+        "lead": "Repositioned the hook formula and launched a Shorts-first calendar",
+        "punch": "that compounded into 500K monthly views"
+      },
+      "author": {
+        "name": "Inside Out Health",
+        "role": "Fitness",
+        "avatar": "https://i.pravatar.cc/80?img=47"
+      },
+      "stats": [
+        { "value": "500K", "label": "Monthly Views" },
+        { "value": "+9x", "label": "Lead Capture" }
+      ],
+      "file_type": "video",
+      "video_url": "/video/intro_video.mp4"
+    }
+  ]
+}
