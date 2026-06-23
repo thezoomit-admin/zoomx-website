@@ -36,7 +36,7 @@ export function SecurityMonitor() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0a0612]"
+          className="relative overflow-hidden rounded-xl border border-white/10 bg-[#0a0612]"
         >
           <div
             aria-hidden
@@ -70,7 +70,7 @@ export function SecurityMonitor() {
           <div className="relative grid gap-5 p-5 md:grid-cols-12 md:gap-6 md:p-8">
             <motion.div
               variants={itemVariants}
-              className="md:col-span-7 rounded-2xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl md:p-6"
+              className="md:col-span-7 rounded-xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl md:p-6"
             >
               <div className="flex items-center justify-between">
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
@@ -101,7 +101,7 @@ export function SecurityMonitor() {
             <div className="grid gap-4 md:col-span-5 md:gap-5">
               <motion.div
                 variants={itemVariants}
-                className="rounded-2xl border border-white/10 bg-gradient-to-br from-emerald-500/[0.08] to-transparent p-5 backdrop-blur-xl"
+                className="rounded-xl border border-white/10 bg-gradient-to-br from-emerald-500/[0.08] to-transparent p-5 backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between">
                   <Activity className="h-4 w-4 text-emerald-300" />
@@ -119,7 +119,7 @@ export function SecurityMonitor() {
 
               <motion.div
                 variants={itemVariants}
-                className="rounded-2xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl"
+                className="rounded-xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between">
                   <KeyRound className="h-4 w-4 text-[#c9b3ec]" />

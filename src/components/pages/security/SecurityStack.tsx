@@ -111,7 +111,7 @@ export function SecurityStack() {
 
             <motion.div
               variants={layerVariants}
-              className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl"
+              className="mt-8 rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
                 Audit Snapshot
@@ -147,10 +147,10 @@ export function SecurityStack() {
                   className="group relative flex items-stretch gap-5"
                 >
                   <div className="relative z-10 shrink-0">
-                    <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-2xl border border-white/10 bg-[#0d0716] backdrop-blur-xl transition-all duration-500 group-hover:border-[#a888c8]/40">
+                    <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-xl border border-white/10 bg-[#0d0716] backdrop-blur-xl transition-all duration-500 group-hover:border-[#a888c8]/40">
                       <div
                         aria-hidden
-                        className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                         style={{
                           background:
                             "radial-gradient(circle at 50% 0%, rgba(168,136,200,0.35), transparent 70%)",
@@ -165,7 +165,7 @@ export function SecurityStack() {
                     </span>
                   </div>
 
-                  <div className="relative flex-1 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-5 backdrop-blur-xl transition-all duration-500 group-hover:border-white/20 md:p-6">
+                  <div className="relative flex-1 rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-5 backdrop-blur-xl transition-all duration-500 group-hover:border-white/20 md:p-6">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <h3 className="font-syne text-[17px] font-semibold text-white md:text-[18px]">
                         {layer.title}
