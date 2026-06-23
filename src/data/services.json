@@ -54,9 +54,7 @@
         "image": "https://picsum.photos/seed/zoomx-detail-video-editing/900/700",
         "items": [
           { "title": "Listing-First Story Structure", "description": "Hook in the first 1.5s, walk-through middle, agent-tag close — proven for both portals and social." },
-          { "title": "Colour & Sky Replacement", "description": "Skies, grass, and interiors graded to a clean brand-consistent palette, even on overcast shoot days." },
-          { "title": "Loudness & Audio Polish", "description": "Voice, music, and ambient balanced to -14 LUFS so it ships clean on YouTube, Reels, and TV." },
-          { "title": "Platform-Spec Exports", "description": "9:16, 1:1, 16:9 — all aspects delivered in one pass with codecs verified against each platform spec." }
+          { "title": "Colour & Sky Replacement", "description": "Skies, grass, and interiors graded to a clean brand-consistent palette, even on overcast shoot days." }
         ],
         "stats": [
           { "value": "<48h", "label": "First Cut Delivered" },
@@ -124,9 +122,7 @@
         "image": "https://picsum.photos/seed/zoomx-detail-audio-editing/900/700",
         "items": [
           { "title": "Dialogue Cleanup", "description": "Mouth clicks, breaths, room tone, and plosives removed without over-de-essing the natural voice." },
-          { "title": "Music & SFX Library", "description": "Royalty-cleared beds and effects curated to your brand tone, layered under voice with precise ducking." },
-          { "title": "Loudness Mastering", "description": "Mastered to platform-spec LUFS (Spotify, Apple, YouTube) with true-peak headroom under -1 dBTP." },
-          { "title": "Multi-Format Stems", "description": "Stereo masters, mono safety, and music/voice stems delivered on every project for future repurposing." }
+          { "title": "Music & SFX Library", "description": "Royalty-cleared beds and effects curated to your brand tone, layered under voice with precise ducking." }
         ],
         "stats": [
           { "value": "<48h", "label": "Mix Turnaround" },
@@ -191,9 +187,7 @@
         "image": "https://picsum.photos/seed/zoomx-detail-storyboard/900/700",
         "items": [
           { "title": "Beat Sheet From Brief", "description": "We translate your brief into a beat-by-beat narrative arc before the first frame gets sketched." },
-          { "title": "Frame-Level Sketches", "description": "Each beat is illustrated with composition, camera move, and intent — clean enough to share with the client." },
-          { "title": "Shot List & Schedule", "description": "Every frame paired with shot type, lens, and run time so your shoot day stays on schedule." },
-          { "title": "Editor Hand-Off Pack", "description": "Boards, shot list, and beat sheet exported in one bundle for the editor to cut against." }
+          { "title": "Frame-Level Sketches", "description": "Each beat is illustrated with composition, camera move, and intent — clean enough to share with the client." }
         ],
         "stats": [
           { "value": "<5d", "label": "Board Turnaround" },
@@ -257,9 +251,7 @@
         "image": "https://picsum.photos/seed/zoomx-detail-animation/900/700",
         "items": [
           { "title": "Brand-Kit Calibration", "description": "Type, palette, easing curves and grid sourced from your brand kit before the first keyframe gets dropped." },
-          { "title": "Kinetic Typography", "description": "Headline, sub, and tag treatments built as reusable comps for ads, reels, and explainer drops." },
-          { "title": "Logo Reveal Library", "description": "Three-variant logo reveal set per project — short, medium, and signature — for any placement length." },
-          { "title": "Layered Project Files", "description": "Editable AE / Lottie files delivered with every export so your team can re-time without coming back to us." }
+          { "title": "Kinetic Typography", "description": "Headline, sub, and tag treatments built as reusable comps for ads, reels, and explainer drops." }
         ],
         "stats": [
           { "value": "<7d", "label": "First Pass" },

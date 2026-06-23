@@ -66,45 +66,62 @@ export function TrustedBrands({
         </motion.div>
       </div>
 
-      <div className="relative mt-8 md:mt-10">
+      <div className="brands-marquee-wrap relative mt-8 space-y-3 md:mt-10 md:space-y-4">
+        <style>{`
+          @keyframes brands-marquee-left {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+          }
+          @keyframes brands-marquee-right {
+            0% { transform: translate3d(-50%, 0, 0); }
+            100% { transform: translate3d(0, 0, 0); }
+          }
+          .brands-marquee-track {
+            will-change: transform;
+            backface-visibility: hidden;
+          }
+          .brands-marquee-track-a { animation: brands-marquee-left  48s linear infinite; }
+          .brands-marquee-track-b { animation: brands-marquee-right 56s linear infinite; }
+          .brands-marquee-track-c { animation: brands-marquee-left  64s linear infinite; }
+          .brands-marquee-track:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-black to-transparent md:w-40"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-linear-to-r from-black to-transparent md:w-40"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-black to-transparent md:w-40"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-linear-to-l from-black to-transparent md:w-40"
         />
 
-        <div className="brands-marquee flex w-max items-center gap-3 md:gap-4">
-          <style>{`
-            @keyframes brands-marquee-keyframes {
-              0% { transform: translate3d(0, 0, 0); }
-              100% { transform: translate3d(-50%, 0, 0); }
-            }
-            .brands-marquee {
-              animation: brands-marquee-keyframes 28s linear infinite;
-              will-change: transform;
-              backface-visibility: hidden;
-            }
-            .brands-marquee:hover { animation-play-state: paused; }
-          `}</style>
-
-          {loop.map((logo, idx) => (
-            <div
-              key={`${logo.name}-${idx}`}
-              className="group flex h-20 w-44 shrink-0 items-center justify-center px-4 md:h-24 md:w-52"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={140}
-                height={40}
-                className="h-7 w-auto max-w-full object-contain opacity-60 transition-opacity duration-500 group-hover:opacity-100 md:h-9"
-              />
-            </div>
-          ))}
-        </div>
+        {([
+          "brands-marquee-track-a",
+          "brands-marquee-track-b",
+          "brands-marquee-track-c",
+        ] as const).map((trackClass) => (
+          <div
+            key={trackClass}
+            className={`brands-marquee-track ${trackClass} flex w-max items-center gap-3 md:gap-4`}
+          >
+            {loop.map((logo, idx) => (
+              <div
+                key={`${trackClass}-${logo.name}-${idx}`}
+                className="group flex h-20 w-44 shrink-0 items-center justify-center px-4 md:h-24 md:w-52"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  width={140}
+                  height={40}
+                  className="h-7 w-auto max-w-full object-contain opacity-60 transition-opacity duration-500 group-hover:opacity-100 md:h-9"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );
