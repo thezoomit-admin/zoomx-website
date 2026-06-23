@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { Image } from "@/components/shared/Image";
+
 const GLOW_IMG = "/images/22.png";
 
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
@@ -91,7 +93,7 @@ export function CTASection() {
             className="pointer-events-none absolute inset-0 z-0 flex items-start justify-center overflow-hidden"
           >
             <div className="absolute inset-0 bg-[linear-gradient(180deg,#090909_0%,transparent_42%,#090909_100%)]" />
-            <img
+            <Image
               src={GLOW_IMG}
               loading="lazy"
               sizes="(max-width: 1919px) 100vw, 1920px"

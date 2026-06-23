@@ -5,6 +5,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { Image } from "@/components/shared/Image";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -61,7 +62,14 @@ export function Navbar() {
         >
           <nav className="relative z-10 flex w-full items-center justify-between p-2.5 sm:py-3">
             <Link href="/" className="flex items-center gap-2.5">
-              <img src="/dark logo.png" alt="logo" className="h-9 w-auto" />
+              <Image
+                src="/dark logo.png"
+                alt="logo"
+                width={120}
+                height={36}
+                priority
+                className="h-9 w-auto"
+              />
             </Link>
 
             <ul className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">

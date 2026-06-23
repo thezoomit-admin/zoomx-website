@@ -3,6 +3,7 @@
 import { ArrowUpRight, Check, X } from "lucide-react";
 import type { ReactNode } from "react";
 
+import { Image } from "@/components/shared/Image";
 import { cn } from "@/lib/utils";
 
 import { PROCESS_GLOW_BG } from "./Process";
@@ -82,7 +83,13 @@ export function WhyUs() {
               className="bg-[radial-gradient(circle_farthest-corner_at_50%_0%,#1c0e31,var(--primary-black)_62%)] p-7 md:p-9"
             >
               <div className="flex items-center gap-3">
-                <img src="/dark logo.png" alt="ZOOMX" className="h-[35px] w-auto" />
+                <Image
+                  src="/dark logo.png"
+                  alt="ZOOMX"
+                  width={120}
+                  height={35}
+                  className="h-[35px] w-auto"
+                />
               </div>
 
               <ul className="mt-7 space-y-4">

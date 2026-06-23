@@ -1,5 +1,7 @@
 "use client";
 
+import { Image } from "@/components/shared/Image";
+
 const linkColumns = [
   {
     title: "LINK",
@@ -88,10 +90,11 @@ function TopographyBackdrop() {
       aria-hidden
       className="pointer-events-none absolute inset-0 overflow-hidden bg-[#0a0410]"
     >
-      <img
+      <Image
         src="/footer/footer3.png"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-bottom"
+        sizes="100vw"
+        className="object-cover object-bottom"
       />
       <div
         className="absolute inset-0"
@@ -127,7 +130,13 @@ export function Footer() {
         <div className="relative z-10 app-container pb-14 pt-24 md:pb-20 md:pt-36">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-12">
           <div className="flex flex-col gap-5 md:col-span-4">
-            <img src="/dark logo.png" alt="ZOOMX" className="h-9 w-fit object-contain" />
+            <Image
+              src="/dark logo.png"
+              alt="ZOOMX"
+              width={120}
+              height={36}
+              className="h-9 w-fit object-contain"
+            />
             <p className="max-w-[300px] text-[13px] leading-relaxed text-[#ffffff80]">
               Done-For-You organic video content systems that generate leads on autopilot.
             </p>

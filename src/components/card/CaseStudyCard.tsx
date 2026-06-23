@@ -16,6 +16,7 @@ export type CaseStudy = {
   image_url?: string;
 };
 
+
 function CaseStudyMedia({
   fileType,
   videoUrl,
@@ -27,6 +28,8 @@ function CaseStudyMedia({
   imageUrl?: string;
   title: string;
 }) {
+
+  // This component renders either a video or an image based on the provided file type. It ensures that the media is displayed in a responsive and visually appealing manner, with appropriate styling and accessibility features.
   return (
     <div className="relative aspect-video w-full overflow-hidden bg-linear-to-br from-[#202020] to-[#121213] rounded-(--20px-img-border-all)">
       {fileType === "video" && videoUrl ? (

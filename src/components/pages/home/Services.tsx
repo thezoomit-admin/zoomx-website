@@ -1,5 +1,6 @@
 "use client";
 
+import { Image } from "@/components/shared/Image";
 import { PROCESS_GLOW_BG } from "@/components/pages/home/Process";
 
 const services = [
@@ -37,10 +38,11 @@ function ServiceCard({ icon, title, desc }: { icon: string; title: string; desc:
             filter: "blur(24px)",
           }}
         />
-        <img
+        <Image
           src={icon}
           alt=""
-          loading="lazy"
+          width={140}
+          height={100}
           className="relative z-10 h-[100px] w-auto max-w-[85%] object-contain"
         />
       </div>

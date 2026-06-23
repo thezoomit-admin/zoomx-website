@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 
+import { Image } from "@/components/shared/Image";
+
 const ARROW_ICON =
   "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/67970745c860818130bc7fd6_Arrow_Up_Right.svg";
 
@@ -79,7 +81,7 @@ function useHeroSectionVideoTiltDeg(sectionRef: RefObject<HTMLElement | null>): 
   return deg;
 }
 
-const teamImages: { src: string; alt: string; srcSet?: string; sizes?: string }[] = [
+const teamImages: { src: string; alt: string; sizes?: string }[] = [
   {
     src: "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/68aab973a7d85a2764438c33_image%201_cmp.avif",
     alt: "",
@@ -91,15 +93,11 @@ const teamImages: { src: string; alt: string; srcSet?: string; sizes?: string }[
   {
     src: "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/6796419e2d5f0387789624ae_Client%20Photo%201.webp",
     alt: "Client portrait",
-    srcSet:
-      "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/6796419e2d5f0387789624ae_Client%2520Photo%25201-p-500.webp 500w, https://cdn.prod.website-files.com/6796419e2d5f03877896246e/6796419e2d5f0387789624ae_Client%20Photo%201.webp 600w",
     sizes: "(max-width: 600px) 100vw, 600px",
   },
   {
     src: "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/68039af8dc4ee14f99625623_channels4_profile%20(3).avif",
     alt: "",
-    srcSet:
-      "https://cdn.prod.website-files.com/6796419e2d5f03877896246e/68039af8dc4ee14f99625623_channels4_profile%20(3)-p-500.avif 500w, https://cdn.prod.website-files.com/6796419e2d5f03877896246e/68039af8dc4ee14f99625623_channels4_profile%20(3).avif 900w",
     sizes: "(max-width: 900px) 100vw, 900px",
   },
   {
@@ -151,15 +149,14 @@ export function Hero() {
                     {teamImages.map((img, i) => (
                       <div
                         key={i}
-                        className="-mr-2.5 h-9 w-9 max-w-9 overflow-hidden rounded-full sm:-mr-4 sm:h-[45px] sm:w-[45px] sm:max-w-[45px]"
+                        className="relative -mr-2.5 h-9 w-9 max-w-9 overflow-hidden rounded-full sm:-mr-4 sm:h-[45px] sm:w-[45px] sm:max-w-[45px]"
                       >
-                        <img
+                        <Image
                           src={img.src}
-                          srcSet={img.srcSet}
-                          sizes={img.sizes}
+                          sizes={img.sizes ?? "45px"}
                           alt={img.alt}
                           loading="lazy"
-                          className="h-full w-full object-cover"
+                          className="object-cover"
                         />
                       </div>
                     ))}
@@ -182,8 +179,15 @@ export function Hero() {
                     className="inline-flex max-w-fit flex-row flex-wrap items-center justify-start gap-[15px] rounded-xl bg-gradient-to-r from-[#5c2e9d] to-[#7c499d] px-[25px] py-3.5 text-center text-sm font-medium capitalize text-white no-underline transition-[opacity,box-shadow] duration-200 hover:opacity-[0.85] hover:shadow-[0_4px_24px_-4px_rgba(124,73,157,0.45)] max-md:w-fit max-md:justify-center"
                   >
                     <span>Book a call</span>
-                    <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[20px] bg-[#a8a9cf3b]">
-                      <img src={ARROW_ICON} loading="lazy" alt="" className="h-full w-full p-2" />
+                    <span className="relative flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[20px] bg-[#a8a9cf3b]">
+                      <Image
+                        src={ARROW_ICON}
+                        loading="lazy"
+                        alt=""
+                        width={26}
+                        height={26}
+                        className="h-full w-full p-2"
+                      />
                     </span>
                   </a>
                 </div>
@@ -218,7 +222,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 flex flex-row items-start justify-center overflow-hidden opacity-100 transform-[translate3d(0px,0px,0px)_scale3d(1,1,1)_rotateX(0deg)_rotateY(0deg)_rotateZ(0deg)_skew(0deg,0deg)] transform-3d">
         <div className="absolute inset-0 z-3 bg-[linear-gradient(90deg,#090909_17%,#090909e6_35%,transparent)]" />
         <div className="pointer-events-none absolute right-0 top-[61%] z-2 hidden h-[300px] w-[300px] rounded-full bg-(--light-grey) mix-blend-overlay opacity-[0.96] blur-[20px] md:block" />
-        <img
+        <Image
           src={GLOW_IMG}
           loading="lazy"
           sizes="(max-width: 1919px) 100vw, 1920px"
