@@ -101,12 +101,12 @@ function SectionGlow({ side = "left" }: { side?: "left" | "right" }) {
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none absolute top-1/2 -z-10 h-[420px] w-[420px] -translate-y-1/2 rounded-full opacity-60 blur-[120px]",
-        side === "left" ? "-left-32" : "-right-32",
+        "pointer-events-none absolute top-1/2 -z-10 h-[300px] w-[300px] -translate-y-1/2 rounded-full opacity-40 blur-[100px]",
+        side === "left" ? "-left-24" : "-right-24",
       )}
       style={{
         background:
-          "radial-gradient(circle, rgba(124,73,157,0.55), rgba(168,136,200,0) 70%)",
+          "radial-gradient(circle, rgba(124,73,157,0.45), rgba(168,136,200,0) 70%)",
       }}
     />
   );
@@ -144,34 +144,34 @@ function BlockShell({
     >
       <SectionGlow side={glow} />
 
-      <div className="grid gap-10 md:grid-cols-12 md:gap-12 lg:gap-16">
+      <div className="grid gap-6 md:grid-cols-12 md:gap-10 lg:gap-12">
         <div className="relative md:col-span-4">
-          <div className="sticky top-28 flex flex-col gap-4">
+          <div className="sticky top-24 flex flex-col gap-3">
             <motion.div ref={numberRef} style={{ y: parallaxY }} className="relative">
               <motion.div
                 variants={numberVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.3, margin: "-10% 0px -10% 0px" }}
+                viewport={{ once: true, amount: 0.3, margin: "-10% 0px -10% 0px" }}
                 style={{ transformOrigin: "left center" }}
                 className="relative"
               >
                 <span
                   aria-hidden
-                  className="select-none font-syne text-[clamp(6rem,14vw,11rem)] font-bold leading-none tracking-tight"
+                  className="select-none font-syne text-[clamp(3.5rem,8vw,6rem)] font-bold leading-none tracking-tight"
                   style={{
                     background:
                       "linear-gradient(135deg, #a888c8 0%, #7c499d 50%, #5c2e9d 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    filter: "drop-shadow(0 8px 32px rgba(124,73,157,0.35))",
+                    filter: "drop-shadow(0 6px 24px rgba(124,73,157,0.3))",
                   }}
                 >
                   {num}
                 </span>
                 <span
                   aria-hidden
-                  className="absolute inset-0 select-none font-syne text-[clamp(6rem,14vw,11rem)] font-bold leading-none tracking-tight text-white/[0.04]"
+                  className="absolute inset-0 select-none font-syne text-[clamp(3.5rem,8vw,6rem)] font-bold leading-none tracking-tight text-white/[0.04]"
                   style={{ transform: "translate(0.18em, 0.06em)" }}
                 >
                   {num}
@@ -180,7 +180,7 @@ function BlockShell({
             </motion.div>
             <motion.p
               variants={itemVariants}
-              className="font-syne text-[12px] font-semibold uppercase tracking-[0.22em] text-[#c9b3ec]"
+              className="font-syne text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c9b3ec]"
             >
               {eyebrow}
             </motion.p>
@@ -190,7 +190,7 @@ function BlockShell({
         <div className="md:col-span-8">
           <motion.h2
             variants={itemVariants}
-            className="font-syne text-[clamp(1.5rem,3.6vw,2.5rem)] font-semibold leading-[1.15] tracking-tight"
+            className="font-syne text-[clamp(1.25rem,2.6vw,1.85rem)] font-semibold leading-[1.2] tracking-tight"
           >
             <span
               style={{
@@ -207,13 +207,13 @@ function BlockShell({
           {summary && (
             <motion.p
               variants={itemVariants}
-              className="mt-5 max-w-[58ch] text-[15px] leading-[1.75] text-white/65 md:text-[16px]"
+              className="mt-3 max-w-[60ch] text-[14px] leading-[1.7] text-white/65 md:text-[15px]"
             >
               {summary}
             </motion.p>
           )}
 
-          <motion.div variants={itemVariants} className="mt-10">
+          <motion.div variants={itemVariants} className="mt-6 md:mt-7">
             {children}
           </motion.div>
         </div>
@@ -233,7 +233,7 @@ function FlowList({ items, tone }: { items: Item[]; tone: "warm" | "cool" }) {
       variants={listContainerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.2, margin: "-10% 0px -10% 0px" }}
+      viewport={{ once: true, amount: 0.2, margin: "-10% 0px -10% 0px" }}
       className="flex flex-col"
     >
       {items.map((item, i) => (
@@ -241,27 +241,27 @@ function FlowList({ items, tone }: { items: Item[]; tone: "warm" | "cool" }) {
           key={item.title}
           variants={punchVariants}
           style={{ transformOrigin: "left center" }}
-          className="group relative grid grid-cols-[auto_1fr] gap-5 border-t border-white/[0.08] py-6 transition-colors duration-500 first:border-t-0 hover:border-white/15 md:gap-7 md:py-7"
+          className="group relative grid grid-cols-[auto_1fr] gap-4 border-t border-white/[0.08] py-4 transition-colors duration-500 first:border-t-0 hover:border-white/15 md:gap-5 md:py-5"
         >
           <div className="relative flex flex-col items-center pt-1">
             <span
-              className="font-syne text-[13px] font-semibold tracking-[0.14em] text-white/40 transition-colors duration-500 group-hover:text-white/80"
+              className="font-syne text-[12px] font-semibold tracking-[0.14em] text-white/40 transition-colors duration-500 group-hover:text-white/80"
               aria-hidden
             >
               {String(i + 1).padStart(2, "0")}
             </span>
             <span
               aria-hidden
-              className="mt-3 h-12 w-px origin-top scale-y-50 rounded-full opacity-50 transition-transform duration-700 group-hover:scale-y-100 group-hover:opacity-100"
+              className="mt-2 h-8 w-px origin-top scale-y-50 rounded-full opacity-50 transition-transform duration-700 group-hover:scale-y-100 group-hover:opacity-100"
               style={{ background: accent }}
             />
           </div>
 
           <div className="min-w-0">
-            <h3 className="font-syne text-[17px] font-semibold leading-snug text-white transition-colors duration-500 group-hover:text-[#e6d6f5] md:text-[19px]">
+            <h3 className="font-syne text-[15px] font-semibold leading-snug text-white transition-colors duration-500 group-hover:text-[#e6d6f5] md:text-[16.5px]">
               {item.title}
             </h3>
-            <p className="mt-2 text-[14.5px] leading-[1.7] text-white/55 transition-colors duration-500 group-hover:text-white/75 md:text-[15.5px]">
+            <p className="mt-1.5 text-[13.5px] leading-[1.65] text-white/55 transition-colors duration-500 group-hover:text-white/75 md:text-[14.5px]">
               {item.description}
             </p>
           </div>
@@ -283,8 +283,8 @@ function StatRow({ stats }: { stats: GrowthBlock["stats"] }) {
       variants={listContainerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.2, margin: "-10% 0px -10% 0px" }}
-      className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-4 md:gap-x-4"
+      viewport={{ once: true, amount: 0.2, margin: "-10% 0px -10% 0px" }}
+      className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-2 md:grid-cols-4 md:gap-x-4"
     >
       {stats.map((stat, i) => (
         <motion.div
@@ -301,11 +301,11 @@ function StatRow({ stats }: { stats: GrowthBlock["stats"] }) {
                 "linear-gradient(180deg, #a888c8 0%, transparent 100%)",
             }}
           />
-          <dt className="font-syne text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+          <dt className="font-syne text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/40">
             {String(i + 1).padStart(2, "0")}
           </dt>
           <dd
-            className="mt-3 font-syne text-[clamp(2.2rem,5vw,3.4rem)] font-bold leading-[0.95] tracking-tight"
+            className="mt-2 font-syne text-[clamp(1.7rem,3.8vw,2.5rem)] font-bold leading-[0.95] tracking-tight"
             style={{
               background:
                 "linear-gradient(135deg, #ffffff 0%, #d6c4ee 50%, #a888c8 100%)",
@@ -315,7 +315,7 @@ function StatRow({ stats }: { stats: GrowthBlock["stats"] }) {
           >
             {stat.value}
           </dd>
-          <p className="mt-2 text-[13px] font-medium text-white/55 md:text-[14px]">
+          <p className="mt-1.5 text-[12.5px] font-medium text-white/55 md:text-[13px]">
             {stat.label}
           </p>
         </motion.div>
@@ -336,7 +336,7 @@ export function CaseStudyDetailsBlocks({
   return (
     <section
       id="case-study-details"
-      className="relative overflow-hidden pt-16 md:pt-24"
+      className="relative overflow-hidden pt-10 md:pt-14"
     >
       <div
         aria-hidden
@@ -348,7 +348,7 @@ export function CaseStudyDetailsBlocks({
       />
 
       <div className="app-container">
-        <div className="flex flex-col gap-24 md:gap-32 lg:gap-40">
+        <div className="flex flex-col gap-14 md:gap-20 lg:gap-24">
           <BlockShell
             num="01"
             eyebrow={challenges.eyebrow}

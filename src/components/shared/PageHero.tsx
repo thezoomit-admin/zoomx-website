@@ -14,7 +14,7 @@ export function PageHero({
   description,
 }: PageHeroProps) {
   return (
-    <section className="relative pt-28 md:pt-32">
+    <section className="relative pt-28 pb-8 md:pt-32 md:pb-12">
       <div className="app-container">
         <div className="relative aspect-21/9 overflow-hidden rounded-xl md:rounded-xl border border-white/10 bg-[#090909]">
           <video

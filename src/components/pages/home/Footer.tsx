@@ -1,26 +1,28 @@
 "use client";
 
+import Link from "next/link";
+
 import { Image } from "@/components/shared/Image";
 
 const linkColumns = [
   {
     title: "LINK",
     items: [
-      { label: "Home", href: "#" },
-      { label: "About Us", href: "#about" },
-      { label: "Testimonials", href: "#reviews" },
-      { label: "Case Study", href: "#case-study" },
-      { label: "Contact Us", href: "#book-a-call" },
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/#about" },
+      { label: "Testimonials", href: "/#reviews" },
+      { label: "Case Study", href: "/case-study" },
+      { label: "Contact Us", href: "/#book-a-call" },
     ],
   },
   {
     title: "FEATURES",
     items: [
-      { label: "Security", href: "#" },
-      { label: "Quality", href: "#" },
-      { label: "Benefits", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Portfolio", href: "#work" },
+      { label: "Security", href: "/security" },
+      { label: "Quality", href: "/quality" },
+      { label: "Benefits", href: "/benefits" },
+      { label: "Blog", href: "/blog" },
+      { label: "Portfolio", href: "/portfolio" },
     ],
   },
 ] as const;
@@ -155,13 +157,22 @@ export function Footer() {
                 {column.title}
               </h3>
               <ul className="flex flex-col gap-3">
-                {column.items.map((item) => (
-                  <li key={item.label}>
-                    <a href={item.href} className={linkClassName}>
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
+                {column.items.map((item) => {
+                  const isHash = item.href.startsWith("#");
+                  return (
+                    <li key={item.label}>
+                      {isHash ? (
+                        <a href={item.href} className={linkClassName}>
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link href={item.href} className={linkClassName}>
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           ))}
@@ -202,13 +213,13 @@ export function Footer() {
           </p>
           <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-6">
             {legalLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="font-syne text-[14px] font-medium text-white transition-opacity hover:opacity-80"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
