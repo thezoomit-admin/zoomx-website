@@ -318,35 +318,57 @@ const scriptingWordVariants: Variants = {
 const stepContainerVariants: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.18, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.2, delayChildren: 0.05 },
   },
 };
 
+// "Bumbam" — bouncy overshoot pop. Scales from very small + slight rotation,
+// settles with a punchy spring that overshoots before locking in.
 const stepMarkerVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.4 },
+  hidden: { opacity: 0, scale: 0.2, rotate: -45 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { type: "spring", stiffness: 240, damping: 18, mass: 0.8 },
+    rotate: 0,
+    transition: { type: "spring", stiffness: 360, damping: 10, mass: 0.8 },
   },
 };
 
+// Slide-up + blur clear, with a subtle scale-up overshoot for extra impact.
 const stepTextVariants: Variants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 36, scale: 0.92, filter: "blur(10px)" },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     filter: "blur(0px)",
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: {
+      type: "spring",
+      stiffness: 180,
+      damping: 16,
+      mass: 0.9,
+      opacity: { duration: 0.5 },
+      filter: { duration: 0.55 },
+    },
   },
 };
 
+// Visual cards swing up from below with a 3D tilt that levels out — feels like
+// the visual physically lands into frame.
 const stepVisualVariants: Variants = {
-  hidden: { opacity: 0, y: 36 },
+  hidden: { opacity: 0, y: 60, scale: 0.88, rotateX: -8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+    scale: 1,
+    rotateX: 0,
+    transition: {
+      type: "spring",
+      stiffness: 150,
+      damping: 18,
+      mass: 1.1,
+      opacity: { duration: 0.6 },
+    },
   },
 };
 
@@ -749,7 +771,7 @@ export function Process() {
                 variants={stepContainerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-120px" }}
+                viewport={{ amount: 0.3, margin: "-80px" }}
                 className="relative"
               >
                 <motion.div
@@ -777,6 +799,7 @@ export function Process() {
                   </motion.div>
                   <motion.div
                     variants={stepVisualVariants}
+                    style={{ transformPerspective: 1000 }}
                     className={cn(!step.textOnLeft && "lg:order-1")}
                   >
                     {step.visual}

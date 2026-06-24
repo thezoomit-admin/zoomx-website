@@ -20,6 +20,7 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [isRaised, setIsRaised] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     // Navbar starts raised (top-6) while near the page top, and slides up to
@@ -28,12 +29,22 @@ export function Navbar() {
     const scrollThreshold = 80;
 
     const onScroll = () => {
-      setIsRaised(window.scrollY <= scrollThreshold);
+      const y = window.scrollY;
+      setIsRaised(y <= scrollThreshold);
+
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(1, Math.max(0, y / docHeight)) : 0;
+      setScrollProgress(progress);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
@@ -161,6 +172,20 @@ export function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Scroll progress bar — fills 0 → 100% as the page scrolls */}
+          <div
+            aria-hidden
+            className="relative h-0.5 w-full overflow-hidden bg-white/5"
+          >
+            <div
+              className="h-full origin-left bg-linear-to-r from-[#5c2e9d] via-[#a888c8] to-[#7c499d] shadow-[0_0_10px_rgba(168,136,200,0.6)]"
+              style={{
+                transform: `scaleX(${scrollProgress})`,
+                transition: "transform 80ms linear",
+              }}
+            />
+          </div>
         </div>
       </div>
     </header>
