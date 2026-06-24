@@ -8,8 +8,11 @@ const GLOW_IMG = "/images/22.png";
 
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
 
+// Theme Calendly to the soft-lavender / deep-purple palette so the widget
+// blends with the dark brand section instead of punching a stark white panel
+// into it. Hex values are passed without the leading `#`.
 const DEFAULT_CALENDLY_URL =
-  "https://calendly.com/thezoomitltd/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1";
+  "https://calendly.com/thezoomitltd/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1&background_color=f4f0f9&text_color=1a0a2e&primary_color=7c499d";
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL || DEFAULT_CALENDLY_URL;
 
@@ -87,7 +90,7 @@ export function CTASection() {
   return (
     <section id="book-a-call" className="relative py-8 md:py-10">
       <div className="app-container">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#070009]">
+        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#070009]">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 z-0 flex items-start justify-center overflow-hidden"
@@ -129,10 +132,10 @@ export function CTASection() {
             </div>
 
             <div className="mx-auto mt-10 w-full max-w-[1080px] md:mt-12">
-              <div className="rounded-2xl bg-linear-to-br from-[#7c499d]/65 via-[#a888c8]/30 to-[#5c2e9d]/65 p-[1.5px] shadow-[0_30px_80px_-20px_rgba(124,73,157,0.5)]">
-                <div className="relative overflow-hidden rounded-2xl bg-white">
+              <div className="rounded-lg bg-linear-to-br from-[#7c499d]/65 via-[#a888c8]/30 to-[#5c2e9d]/65 p-[1.5px] shadow-[0_30px_80px_-20px_rgba(124,73,157,0.5)]">
+                <div className="relative overflow-hidden rounded-lg bg-[#f4f0f9]">
                   {/* Mac-window title bar in the brand purple */}
-                  <div className="flex items-center justify-between border-b border-black/5 bg-linear-to-b from-[#f7f3fb] to-white px-4 py-3 md:px-5">
+                  <div className="flex items-center justify-between border-b border-[#1a0a2e]/8 bg-linear-to-b from-[#eee6f7] to-[#f4f0f9] px-4 py-3 md:px-5">
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -144,8 +147,8 @@ export function CTASection() {
                       </span>
                     </div>
                     <span className="hidden items-center gap-2 sm:inline-flex">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-600">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-600" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-700">
                         Live
                       </span>
                     </span>

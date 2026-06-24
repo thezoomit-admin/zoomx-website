@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Image } from "@/components/shared/Image";
 import { Button } from "@/components/ui/button";
@@ -20,24 +20,15 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [isRaised, setIsRaised] = useState(true);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const scrollThreshold = 10;
-    const directionThreshold = 6;
+    // Navbar starts raised (top-6) while near the page top, and slides up to
+    // top-0 once the user has scrolled past the threshold. No scroll-direction
+    // tracking — it doesn't pop back down mid-page when scrolling up.
+    const scrollThreshold = 80;
 
     const onScroll = () => {
-      const y = window.scrollY;
-
-      if (y <= scrollThreshold) {
-        setIsRaised(true);
-      } else if (y > lastScrollY.current + directionThreshold) {
-        setIsRaised(false);
-      } else if (y < lastScrollY.current - directionThreshold) {
-        setIsRaised(true);
-      }
-
-      lastScrollY.current = y;
+      setIsRaised(window.scrollY <= scrollThreshold);
     };
 
     onScroll();
@@ -48,7 +39,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed left-1/2 z-9999 flex app-container -translate-x-1/2 flex-col items-stretch transition-[top] duration-300 ease-out motion-reduce:transition-none",
+        "fixed left-1/2 z-9999 flex app-container -translate-x-1/2 flex-col items-stretch transition-[top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
         isRaised ? "top-6" : "top-0",
       )}
     >
