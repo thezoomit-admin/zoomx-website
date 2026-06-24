@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "Review", href: "#reviews" },
-  { label: "Work", href: "#work" },
+  { label: "Review", href: "/#reviews" },
+  { label: "Work", href: "/#work" },
   { label: "Case Study", href: "/case-study" },
-  { label: "Process", href: "#process" },
+  { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -95,7 +95,7 @@ export function Navbar() {
             </ul>
 
             <Button
-              href="#book-a-call"
+              href="/#book-a-call"
               variant="brand"
               size="cta"
               className="hidden md:inline-flex"
@@ -156,7 +156,7 @@ export function Navbar() {
                   })}
                   <li>
                     <Button
-                      href="#book-a-call"
+                      href="/#book-a-call"
                       onClick={() => setOpen(false)}
                       variant="brand"
                       size="cta"

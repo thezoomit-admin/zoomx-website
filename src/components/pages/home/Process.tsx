@@ -79,6 +79,16 @@ const THUMB_KEYFRAMES: ThumbKeyframe[] = [
   },
 ];
 
+/** 0 → 1 as the viewport center scrolls from the top of `el` to its bottom. */
+function computeLineFillProgress(el: HTMLElement): number {
+  const rect = el.getBoundingClientRect();
+  const vh = typeof window !== "undefined" ? window.innerHeight : 0;
+  if (vh <= 0 || rect.height <= 0) return 0;
+  const viewportCenter = vh * 0.45;
+  const scrolled = viewportCenter - rect.top;
+  return clamp01(scrolled / rect.height);
+}
+
 /** Visual box center vs viewport center (+ = below center / scroll toward top) */
 function computeThumbnailViewportOffset(el: HTMLElement): number {
   const rect = el.getBoundingClientRect();
@@ -302,6 +312,41 @@ const scriptingWordVariants: Variants = {
   },
   exit: {
     transition: { staggerChildren: 0.04, staggerDirection: -1 },
+  },
+};
+
+const stepContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.18, delayChildren: 0.05 },
+  },
+};
+
+const stepMarkerVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.4 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: "spring", stiffness: 240, damping: 18, mass: 0.8 },
+  },
+};
+
+const stepTextVariants: Variants = {
+  hidden: { opacity: 0, y: 28, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stepVisualVariants: Variants = {
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -660,6 +705,9 @@ const STEPS: ProcessStep[] = [
 ];
 
 export function Process() {
+  const stepsRef = useRef<HTMLOListElement>(null);
+  const fillProgress = useScrollProgress(stepsRef, computeLineFillProgress);
+
   return (
     <section id="process" className="relative overflow-hidden py-8 md:py-10">
       <div className="container mx-auto px-6 md:px-8">
@@ -672,19 +720,48 @@ export function Process() {
         </h2>
 
         <div className="relative mx-auto mt-16 max-w-[1100px] md:mt-20">
-          <ol className="flex relative flex-col gap-16">
+          <ol ref={stepsRef} className="flex relative flex-col gap-16">
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-10 hidden h-[97%] w-px -translate-x-1/2 bg-white/10 lg:block z-[20]"
-            />
+              className="pointer-events-none absolute left-1/2 top-10 z-20 hidden h-[97%] w-0.5 -translate-x-1/2 bg-white/10 lg:block"
+            >
+              <div
+                className="absolute inset-x-0 top-0 origin-top"
+                style={{
+                  height: `${fillProgress * 100}%`,
+                  background:
+                    "linear-gradient(180deg, rgba(168,136,200,0) 0%, #a888c8 12%, #7c499d 50%, #5c2e9d 100%)",
+                  boxShadow: "0 0 14px rgba(124, 73, 157, 0.65)",
+                  transition: "height 120ms linear",
+                }}
+              />
+              <div
+                className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#a888c8] opacity-90 shadow-[0_0_18px_rgba(168,136,200,0.9),0_0_4px_rgba(255,255,255,0.9)]"
+                style={{
+                  top: `${fillProgress * 100}%`,
+                  transition: "top 120ms linear",
+                }}
+              />
+            </div>
             {STEPS.map((step) => (
-              <li key={step.num} className="relative">
-                <div className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2">
+              <motion.li
+                key={step.num}
+                variants={stepContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-120px" }}
+                className="relative"
+              >
+                <motion.div
+                  variants={stepMarkerVariants}
+                  className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2"
+                >
                   <StepMarker num={step.num} />
-                </div>
+                </motion.div>
 
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                  <div
+                  <motion.div
+                    variants={stepTextVariants}
                     className={cn(
                       "flex justify-center",
                       step.textOnLeft
@@ -697,10 +774,15 @@ export function Process() {
                       title={step.title}
                       description={step.description}
                     />
-                  </div>
-                  <div className={cn(!step.textOnLeft && "lg:order-1")}>{step.visual}</div>
+                  </motion.div>
+                  <motion.div
+                    variants={stepVisualVariants}
+                    className={cn(!step.textOnLeft && "lg:order-1")}
+                  >
+                    {step.visual}
+                  </motion.div>
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ol>
 

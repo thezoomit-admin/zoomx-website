@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 import { Image } from "@/components/shared/Image";
 import { Button } from "@/components/ui/button";
@@ -59,8 +60,16 @@ function CaseStudyMedia({
 
 export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
   return (
-    <article className="mt-12 overflow-hidden rounded-xl border border-white/10 bg-[radial-gradient(circle_farthest-corner_at_50%_0%,#5c2e9d50,var(--primary-black)_58%)] p-7 md:mt-16 md:p-10 lg:p-12">
-      <div className="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-700">
+    <article className="group relative mt-12 overflow-hidden rounded-xl border border-white/10 bg-[radial-gradient(circle_farthest-corner_at_50%_0%,#5c2e9d50,var(--primary-black)_58%)] p-7 transition-colors duration-300 hover:border-white/25 md:mt-16 md:p-10 lg:p-12">
+      {c.slug && (
+        <Link
+          href={`/case-study/${c.slug}`}
+          aria-label={`Read ${c.author.name} case study`}
+          className="absolute inset-0 z-10"
+        />
+      )}
+
+      <div className="relative z-0 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-700">
         <p className="inline-block font-syne text-[14px] font-semibold uppercase leading-[1.8] tracking-[0.07em] text-white">
           {c.index}
           <span className="inline-block w-8" />
@@ -83,14 +92,14 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="relative z-20 flex flex-wrap items-center gap-3">
           {c.slug && (
             <Button href={`/case-study/${c.slug}`} variant="brandOutline" size="cta">
               Read Case Study
               <ArrowUpRight />
             </Button>
           )}
-          <Button href="#book-a-call" variant="brand" size="cta">
+          <Button href="/#book-a-call" variant="brand" size="cta">
             Book A Call
             <ArrowUpRight />
           </Button>
@@ -157,12 +166,14 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
           </div>
         </div>
 
-        <CaseStudyMedia
-          fileType={c.file_type}
-          videoUrl={c.video_url}
-          imageUrl={c.image_url}
-          title={`${c.author.name} testimonial`}
-        />
+        <div className="relative z-20">
+          <CaseStudyMedia
+            fileType={c.file_type}
+            videoUrl={c.video_url}
+            imageUrl={c.image_url}
+            title={`${c.author.name} testimonial`}
+          />
+        </div>
       </div>
     </article>
   );
