@@ -74,7 +74,7 @@ export function SecurityMonitor() {
             >
               <div className="flex items-center justify-between">
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-                  // recent_events
+                  {"// recent_events"}
                 </p>
                 <ScrollText className="h-4 w-4 text-white/30" />
               </div>
