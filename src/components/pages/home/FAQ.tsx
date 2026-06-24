@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -32,9 +32,25 @@ const faqs = [
     q: "Tell me about your workflow?",
     a: "We understand your project, your consumer base, and your businesses, and then schedule a discovery call with you to understand your requirements. Afterwards, our team takes care of task management, delegation, editing, and running feedback loops with you to ensure best results.",
   },
+  {
+    q: "How long does a typical project take?",
+    a: "Most short-form edits ship within 24-48 hours of receiving raw footage. Long-form videos and full launch campaigns run on a weekly cadence aligned with your publishing schedule.",
+  },
+  {
+    q: "How do you handle revisions?",
+    a: "Every project includes two rounds of revisions baked into the price. We capture notes directly on Frame.io so feedback is timestamped and unambiguous — no email ping-pong.",
+  },
+  {
+    q: "What does pricing look like?",
+    a: "We charge one flat monthly fee tied to a deliverable cadence — no hourly creep, no surprise invoices. You know exactly what next month costs before you commit to it.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Book a 30-minute call, share your channel and goals, and we'll send back a sample plan within 24 hours. Once you say yes, your first edit lands in about a week.",
+  },
 ] as const;
 
-const DEFAULT_OPEN = new Set<number>();
+const DEFAULT_OPEN = new Set<number>([0]);
 
 /** Left column gets the extra item when count is odd (e.g. 9 → 5|4, 8 → 4|4). */
 function splitFaqsIntoColumns<T>(items: readonly T[]): [readonly T[], readonly T[]] {
@@ -51,28 +67,49 @@ type FaqItemProps = {
 
 function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#ffffff0f] bg-[#0a0a0a]">
+    <div
+      className={cn(
+        "group relative overflow-hidden rounded-lg border transition-all duration-500",
+        isOpen
+          ? "border-[#a888c8]/40 bg-[radial-gradient(circle_at_50%_-20%,#5c2e9d33,#0a0a0a_70%)] shadow-[0_18px_60px_-22px_rgba(124,73,157,0.55)]"
+          : "border-[#ffffff0f] bg-[#0a0a0a] hover:border-white/20 hover:bg-[#0d0d10]",
+      )}
+    >
+      {isOpen && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#a888c8]/60 to-transparent"
+        />
+      )}
+
       <Button
         type="button"
         variant="ghost"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex h-auto w-full items-center justify-between gap-4 rounded-none px-5 py-5 text-left hover:bg-white/2 sm:px-6 sm:py-6"
+        className="flex h-auto w-full items-center justify-between gap-4 rounded-none px-5 py-5 text-left hover:bg-transparent sm:px-6 sm:py-6"
       >
-        <span className="font-syne text-[15px] font-semibold leading-snug text-white sm:text-base">
+        <span
+          className={cn(
+            "font-syne text-[15px] font-semibold leading-snug transition-colors sm:text-base",
+            isOpen ? "text-white" : "text-white/90",
+          )}
+        >
           {question}
         </span>
         <span
           className={cn(
-            "flex shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#141414] p-1",
-            isOpen && "bg-[#1a1a1a]",
+            "flex shrink-0 items-center justify-center rounded-full border p-1 transition-all duration-300",
+            isOpen
+              ? "border-[#a888c8]/50 bg-[#2a1644] text-white"
+              : "border-white/10 bg-[#141414] text-white/80",
           )}
           aria-hidden
         >
           <ChevronDown
             size={18}
             className={cn(
-              "text-white/80 transition-transform duration-300",
+              "transition-transform duration-300",
               isOpen && "rotate-180",
             )}
           />
@@ -88,9 +125,7 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="px-5 pb-5 cursor-pointer font-syne text-[14px] leading-[1.6] text-[#ffffffb3] sm:px-6 sm:pb-6 sm:text-[15px]">
-              {answer}
-            </p>
+            <FaqAnswer answer={answer} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -98,15 +133,58 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
   );
 }
 
+function FaqAnswer({ answer }: { answer: string }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [needsToggle, setNeedsToggle] = useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Compare full content height against the line-clamped height.
+    const measure = () => {
+      const lineHeight = parseFloat(window.getComputedStyle(el).lineHeight) || 22;
+      const maxClampedHeight = lineHeight * 3 + 1; // 3 lines + rounding tolerance
+      setNeedsToggle(el.scrollHeight > maxClampedHeight);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [answer]);
+
+  return (
+    <div className="px-5 pb-5 sm:px-6 sm:pb-6">
+      <p
+        ref={ref}
+        className={cn(
+          "font-syne text-[14px] leading-[1.6] text-[#ffffffb3] sm:text-[15px]",
+          !isExpanded && "line-clamp-3",
+        )}
+      >
+        {answer}
+      </p>
+      {needsToggle && (
+        <button
+          type="button"
+          onClick={() => setIsExpanded((prev) => !prev)}
+          className="mt-2.5 inline-flex items-center font-syne text-[13px] font-semibold text-[#c9b3ec] transition-colors hover:text-white sm:text-[13.5px]"
+        >
+          {isExpanded ? "Show less" : "Show more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 function FaqColumn({
   items,
   baseIndex,
-  openSet,
+  openIndex,
   onToggle,
 }: {
   items: readonly (typeof faqs)[number][];
   baseIndex: number;
-  openSet: Set<number>;
+  openIndex: number | null;
   onToggle: (index: number) => void;
 }) {
   return (
@@ -118,7 +196,7 @@ function FaqColumn({
             key={item.q}
             question={item.q}
             answer={item.a}
-            isOpen={openSet.has(index)}
+            isOpen={openIndex === index}
             onToggle={() => onToggle(index)}
           />
         );
@@ -131,15 +209,13 @@ export function FAQ() {
   const [leftFaqs, rightFaqs] = splitFaqsIntoColumns(faqs);
   const rightColumnBaseIndex = leftFaqs.length;
 
-  const [openSet, setOpenSet] = useState<Set<number>>(() => new Set(DEFAULT_OPEN));
+  const [openIndex, setOpenIndex] = useState<number | null>(() => {
+    const [first] = DEFAULT_OPEN;
+    return first ?? null;
+  });
 
   const toggle = (index: number) => {
-    setOpenSet((prev) => {
-      const next = new Set(prev);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
-      return next;
-    });
+    setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   return (
@@ -155,12 +231,12 @@ export function FAQ() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 md:grid-cols-2 md:gap-5 md:gap-x-6">
-          <FaqColumn items={leftFaqs} baseIndex={0} openSet={openSet} onToggle={toggle} />
+        <div className="mt-12 grid grid-cols-1 items-start gap-4 sm:mt-14 md:grid-cols-2 md:gap-5 md:gap-x-6">
+          <FaqColumn items={leftFaqs} baseIndex={0} openIndex={openIndex} onToggle={toggle} />
           <FaqColumn
             items={rightFaqs}
             baseIndex={rightColumnBaseIndex}
-            openSet={openSet}
+            openIndex={openIndex}
             onToggle={toggle}
           />
         </div>

@@ -8,13 +8,8 @@ const GLOW_IMG = "/images/22.png";
 
 const CALENDLY_SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
 
-// Calendly accepts `background_color`, `text_color`, and `primary_color` params
-// to theme the inline embed (hex without the leading #).
-const CALENDLY_THEME_PARAMS =
-  "background_color=0a0612&text_color=ffffff&primary_color=a888c8";
-
 const DEFAULT_CALENDLY_URL =
-  `https://calendly.com/thezoomitltd/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1&${CALENDLY_THEME_PARAMS}`;
+  "https://calendly.com/thezoomitltd/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1";
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL || DEFAULT_CALENDLY_URL;
 
@@ -134,24 +129,29 @@ export function CTASection() {
             </div>
 
             <div className="mx-auto mt-10 w-full max-w-[1080px] md:mt-12">
-              <div className="rounded-2xl bg-linear-to-br from-[#7c499d]/55 via-[#a888c8]/25 to-[#5c2e9d]/55 p-[1px]">
-                <div className="relative overflow-hidden rounded-2xl bg-[#0a0612] p-2 md:p-4">
-                  {/* Top status bar */}
-                  <div className="flex items-center justify-between px-3 py-2.5 md:px-4">
-                    <div className="flex items-center gap-2.5">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300/90">
-                        Live · 30-min slot
+              <div className="rounded-2xl bg-linear-to-br from-[#7c499d]/65 via-[#a888c8]/30 to-[#5c2e9d]/65 p-[1.5px] shadow-[0_30px_80px_-20px_rgba(124,73,157,0.5)]">
+                <div className="relative overflow-hidden rounded-2xl bg-white">
+                  {/* Mac-window title bar in the brand purple */}
+                  <div className="flex items-center justify-between border-b border-black/5 bg-linear-to-b from-[#f7f3fb] to-white px-4 py-3 md:px-5">
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5c2e9d]">
+                        zoomx · book a 30-min call
                       </span>
                     </div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-                      zoomx · book
+                    <span className="hidden items-center gap-2 sm:inline-flex">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-600">
+                        Live
+                      </span>
                     </span>
                   </div>
 
-                  <div className="overflow-hidden rounded-xl border border-white/8 bg-[#0a0612]">
-                    <CalendlyInlineWidget />
-                  </div>
+                  <CalendlyInlineWidget />
                 </div>
               </div>
             </div>
