@@ -315,62 +315,190 @@ const scriptingWordVariants: Variants = {
   },
 };
 
-const stepContainerVariants: Variants = {
+type AnimationKit = {
+  container: Variants;
+  marker: Variants;
+  text: Variants;
+  visual: Variants;
+};
+
+const baseContainer = (stagger = 0.18): Variants => ({
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.2, delayChildren: 0.05 },
-  },
-};
+  visible: { transition: { staggerChildren: stagger, delayChildren: 0.04 } },
+});
 
-// "Bumbam" — bouncy overshoot pop. Scales from very small + slight rotation,
-// settles with a punchy spring that overshoots before locking in.
-const stepMarkerVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.2, rotate: -45 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    rotate: 0,
-    transition: { type: "spring", stiffness: 360, damping: 10, mass: 0.8 },
+// 01 — "Spin In": marker spins 360°, text whips in from the side, visual zooms
+// in from a rotated state. Video-editor first-take vibe.
+const spinKit: AnimationKit = {
+  container: baseContainer(0.18),
+  marker: {
+    hidden: { opacity: 0, scale: 0, rotate: -360 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: { type: "spring", stiffness: 220, damping: 12, mass: 0.8 },
+    },
   },
-};
-
-// Slide-up + blur clear, with a subtle scale-up overshoot for extra impact.
-const stepTextVariants: Variants = {
-  hidden: { opacity: 0, y: 36, scale: 0.92, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      type: "spring",
-      stiffness: 180,
-      damping: 16,
-      mass: 0.9,
-      opacity: { duration: 0.5 },
-      filter: { duration: 0.55 },
+  text: {
+    hidden: { opacity: 0, x: -80, skewX: -8, filter: "blur(8px)" },
+    visible: {
+      opacity: 1,
+      x: 0,
+      skewX: 0,
+      filter: "blur(0px)",
+      transition: { type: "spring", stiffness: 160, damping: 18, mass: 0.9 },
+    },
+  },
+  visual: {
+    hidden: { opacity: 0, scale: 0.4, rotate: -45 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: { type: "spring", stiffness: 140, damping: 16, mass: 1 },
     },
   },
 };
 
-// Visual cards swing up from below with a 3D tilt that levels out — feels like
-// the visual physically lands into frame.
-const stepVisualVariants: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 0.88, rotateX: -8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    rotateX: 0,
-    transition: {
-      type: "spring",
-      stiffness: 150,
-      damping: 18,
-      mass: 1.1,
-      opacity: { duration: 0.6 },
+// 02 — "Drop & Slide": marker drops from above, text glides from the right,
+// visual swings in from the side with a subtle scale.
+const dropSlideKit: AnimationKit = {
+  container: baseContainer(0.16),
+  marker: {
+    hidden: { opacity: 0, y: -140 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 320, damping: 14, mass: 0.7 },
+    },
+  },
+  text: {
+    hidden: { opacity: 0, x: 100, filter: "blur(10px)" },
+    visible: {
+      opacity: 1,
+      x: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+  },
+  visual: {
+    hidden: { opacity: 0, x: 140, scale: 0.85 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 150, damping: 18, mass: 1 },
     },
   },
 };
+
+// 03 — "Burst Open": marker pops with overshoot, text scales down from a
+// blurry oversize, visual splits open horizontally like cinema curtains.
+const burstKit: AnimationKit = {
+  container: baseContainer(0.18),
+  marker: {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: [0, 1.4, 0.9, 1],
+      transition: { duration: 0.7, times: [0, 0.55, 0.8, 1], ease: [0.22, 1, 0.36, 1] },
+    },
+  },
+  text: {
+    hidden: { opacity: 0, scale: 1.35, filter: "blur(14px)" },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    },
+  },
+  visual: {
+    hidden: { opacity: 0, scaleX: 0 },
+    visible: {
+      opacity: 1,
+      scaleX: 1,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    },
+  },
+};
+
+// 04 — "3D Flip": marker spins on the Y-axis, text flips up from a tilted
+// state, visual rotates in from the side like a card being turned over.
+const flipKit: AnimationKit = {
+  container: baseContainer(0.22),
+  marker: {
+    hidden: { opacity: 0, rotateY: 180, scale: 0.7 },
+    visible: {
+      opacity: 1,
+      rotateY: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 180, damping: 16, mass: 0.9 },
+    },
+  },
+  text: {
+    hidden: { opacity: 0, rotateX: -90, y: 24, filter: "blur(8px)" },
+    visible: {
+      opacity: 1,
+      rotateX: 0,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { type: "spring", stiffness: 170, damping: 18, mass: 0.95 },
+    },
+  },
+  visual: {
+    hidden: { opacity: 0, rotateY: -85, scale: 0.85 },
+    visible: {
+      opacity: 1,
+      rotateY: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 140, damping: 18, mass: 1.1 },
+    },
+  },
+};
+
+// 05 — "Explosion": stiff over-shoot spring, marker spins in with a kick,
+// text and visual punch up from below — the loudest entrance for the last step.
+const explosionKit: AnimationKit = {
+  container: baseContainer(0.12),
+  marker: {
+    hidden: { opacity: 0, scale: 0, rotate: 90 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: { type: "spring", stiffness: 420, damping: 9, mass: 0.6 },
+    },
+  },
+  text: {
+    hidden: { opacity: 0, y: 60, scale: 0.85 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 280, damping: 12, mass: 0.8 },
+    },
+  },
+  visual: {
+    hidden: { opacity: 0, scale: 0.5, y: 90, rotate: -6 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      rotate: 0,
+      transition: { type: "spring", stiffness: 220, damping: 14, mass: 1 },
+    },
+  },
+};
+
+const ANIMATION_KITS: AnimationKit[] = [
+  spinKit,
+  dropSlideKit,
+  burstKit,
+  flipKit,
+  explosionKit,
+];
 
 const scriptingLetterVariants: Variants = {
   hidden: {
@@ -765,48 +893,53 @@ export function Process() {
                 }}
               />
             </div>
-            {STEPS.map((step) => (
-              <motion.li
-                key={step.num}
-                variants={stepContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ amount: 0.3, margin: "-80px" }}
-                className="relative"
-              >
-                <motion.div
-                  variants={stepMarkerVariants}
-                  className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2"
+            {STEPS.map((step, i) => {
+              const kit = ANIMATION_KITS[i % ANIMATION_KITS.length];
+              return (
+                <motion.li
+                  key={step.num}
+                  variants={kit.container}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ amount: 0.3, margin: "-80px" }}
+                  className="relative"
+                  style={{ transformPerspective: 1200 }}
                 >
-                  <StepMarker num={step.num} />
-                </motion.div>
+                  <motion.div
+                    variants={kit.marker}
+                    className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2"
+                  >
+                    <StepMarker num={step.num} />
+                  </motion.div>
 
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                  <motion.div
-                    variants={stepTextVariants}
-                    className={cn(
-                      "flex justify-center",
-                      step.textOnLeft
-                        ? "lg:justify-end lg:pr-8 xl:pr-12"
-                        : "lg:order-2 lg:justify-start lg:pl-8 xl:pl-12",
-                    )}
-                  >
-                    <ProcessText
-                      badge={step.badge}
-                      title={step.title}
-                      description={step.description}
-                    />
-                  </motion.div>
-                  <motion.div
-                    variants={stepVisualVariants}
-                    style={{ transformPerspective: 1000 }}
-                    className={cn(!step.textOnLeft && "lg:order-1")}
-                  >
-                    {step.visual}
-                  </motion.div>
-                </div>
-              </motion.li>
-            ))}
+                  <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                    <motion.div
+                      variants={kit.text}
+                      style={{ transformPerspective: 1000 }}
+                      className={cn(
+                        "flex justify-center",
+                        step.textOnLeft
+                          ? "lg:justify-end lg:pr-8 xl:pr-12"
+                          : "lg:order-2 lg:justify-start lg:pl-8 xl:pl-12",
+                      )}
+                    >
+                      <ProcessText
+                        badge={step.badge}
+                        title={step.title}
+                        description={step.description}
+                      />
+                    </motion.div>
+                    <motion.div
+                      variants={kit.visual}
+                      style={{ transformPerspective: 1000 }}
+                      className={cn(!step.textOnLeft && "lg:order-1")}
+                    >
+                      {step.visual}
+                    </motion.div>
+                  </div>
+                </motion.li>
+              );
+            })}
           </ol>
 
           <div className="mt-16 flex justify-center md:mt-20">
