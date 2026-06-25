@@ -107,7 +107,7 @@ function AnimatedField({
         )}
       </label>
 
-      <div className="relative overflow-hidden rounded-md">
+      <div className="relative">
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-md"
