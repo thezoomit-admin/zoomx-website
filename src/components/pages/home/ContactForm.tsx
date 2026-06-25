@@ -128,10 +128,10 @@ function AnimatedField({
           className={cn(
             "relative rounded-md border bg-white/[0.03] backdrop-blur-sm transition-colors duration-300",
             hasError
-              ? "border-red-400/60"
+              ? "border-red-400/80"
               : focused
-                ? "border-[#a888c8]/60"
-                : "border-white/10 hover:border-white/15",
+                ? "border-[#a888c8]"
+                : "border-white/40 hover:border-white/60",
           )}
         >
           <motion.div
@@ -668,7 +668,7 @@ export function ContactForm() {
               />
             </div>
 
-            <div className="mt-5 flex-1">
+            <div className="mt-5">
               <AnimatedField
                 id="message"
                 label="Your Message"

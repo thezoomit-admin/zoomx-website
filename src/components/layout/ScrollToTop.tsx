@@ -96,11 +96,10 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
       aria-label="Scroll to top"
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
-      className="fixed right-4 z-[9998] lg:right-6"
+      className="fixed top-12 right-4 z-9998 lg:top-16 lg:right-6"
       style={{
-        top: 64,
-        width: 42,
-        height: 52,
+        width: 34,
+        height: 44,
         borderRadius: 4,
         background: "rgba(12, 5, 22, 0.92)",
         backdropFilter: "blur(16px)",
@@ -146,8 +145,8 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
         aria-hidden
         style={{
           position: "absolute",
-          bottom: 7,
-          fontSize: 8,
+          bottom: 5,
+          fontSize: 7,
           fontWeight: 700,
           letterSpacing: "0.04em",
           color: "rgba(230,190,255,0.95)",

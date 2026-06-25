@@ -334,7 +334,7 @@ function GrowthChart({ stats }: { stats: GrowthBlock["stats"] }) {
                   boxShadow:
                     "0 8px 28px -8px rgba(168,136,200,0.55), inset 0 1px 0 rgba(255,255,255,0.2)",
                 }}
-                className="relative w-full rounded-t-lg transition-transform duration-500 group-hover:scale-x-105"
+                className="relative w-3/4 max-w-16 rounded-t-lg transition-transform duration-500 group-hover:scale-x-105 md:w-3/5"
               >
                 {/* Shine highlight on bar */}
                 <span
