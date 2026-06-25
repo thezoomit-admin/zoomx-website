@@ -96,10 +96,10 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
       aria-label="Scroll to top"
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
-      className="fixed top-12 right-4 z-9998 lg:top-16 lg:right-6"
+      className="fixed top-12 right-4 z-9998 md:top-16 lg:top-16 lg:right-6"
       style={{
-        width: 34,
-        height: 44,
+        width: 42,
+        height: 56,
         borderRadius: 4,
         background: "rgba(12, 5, 22, 0.92)",
         backdropFilter: "blur(16px)",
@@ -145,8 +145,8 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
         aria-hidden
         style={{
           position: "absolute",
-          bottom: 5,
-          fontSize: 7,
+          bottom: 7,
+          fontSize: 9,
           fontWeight: 700,
           letterSpacing: "0.04em",
           color: "rgba(230,190,255,0.95)",
@@ -163,7 +163,7 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
         aria-hidden
         style={{
           position: "absolute",
-          top: 32,
+          top: 38,
           left: 8,
           right: 8,
           height: 1,
@@ -177,7 +177,7 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
       <span
         style={{
           position: "absolute",
-          top: 11,
+          top: 13,
           zIndex: 1,
           display: "flex",
           alignItems: "center",
@@ -186,8 +186,8 @@ export function ScrollToTop({ threshold = 300 }: ScrollToTopProps) {
       >
         <ArrowUp
           style={{
-            width: 15,
-            height: 15,
+            width: 17,
+            height: 17,
             color: scrolling ? "rgba(255,255,255,0.6)" : "rgba(245,210,255,1)",
             strokeWidth: 2.5,
             filter: "drop-shadow(0 0 8px rgba(200,100,255,1))",
