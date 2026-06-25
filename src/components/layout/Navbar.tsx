@@ -3,52 +3,54 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Image } from "@/components/shared/Image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "Review", href: "#reviews" },
-  { label: "Work", href: "#work" },
+  { label: "Review", href: "/#reviews" },
+  { label: "Work", href: "/#work" },
   { label: "Case Study", href: "/case-study" },
-  { label: "Process", href: "#process" },
+  { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [isRaised, setIsRaised] = useState(true);
-  const lastScrollY = useRef(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const scrollThreshold = 10;
-    const directionThreshold = 6;
+    // Navbar starts raised (top-6) while near the page top, and slides up to
+    // top-0 once the user has scrolled past the threshold. No scroll-direction
+    // tracking — it doesn't pop back down mid-page when scrolling up.
+    const scrollThreshold = 80;
 
     const onScroll = () => {
       const y = window.scrollY;
+      setIsRaised(y <= scrollThreshold);
 
-      if (y <= scrollThreshold) {
-        setIsRaised(true);
-      } else if (y > lastScrollY.current + directionThreshold) {
-        setIsRaised(false);
-      } else if (y < lastScrollY.current - directionThreshold) {
-        setIsRaised(true);
-      }
-
-      lastScrollY.current = y;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(1, Math.max(0, y / docHeight)) : 0;
+      setScrollProgress(progress);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
     <header
       className={cn(
-        "fixed left-1/2 z-9999 flex app-container -translate-x-1/2 flex-col items-stretch transition-[top] duration-300 ease-out motion-reduce:transition-none",
+        "fixed left-1/2 z-9999 flex app-container -translate-x-1/2 flex-col items-stretch transition-[top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
         isRaised ? "top-6" : "top-0",
       )}
     >
@@ -95,7 +97,7 @@ export function Navbar() {
             </ul>
 
             <Button
-              href="#book-a-call"
+              href="/#book-a-call"
               variant="brand"
               size="cta"
               className="hidden md:inline-flex"
@@ -121,13 +123,18 @@ export function Navbar() {
             {open && (
               <motion.div
                 key="mobile-menu"
-                className="overflow-hidden md:hidden"
+                className="relative overflow-hidden md:hidden"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  backgroundColor: "#090909",
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(124, 73, 157, 0.22) 0%, rgba(60, 30, 100, 0.12) 50%, #090909 100%)",
+                }}
               >
-                <ul className="flex flex-col gap-3 border-t border-white/10 px-4 pb-4 pt-3">
+                <ul className="relative flex flex-col gap-3 border-t border-white/10 px-4 pb-4 pt-3">
                   {links.map((l) => {
                     const isRoute = l.href.startsWith("/");
                     const mobileLinkClassName =
@@ -156,7 +163,7 @@ export function Navbar() {
                   })}
                   <li>
                     <Button
-                      href="#book-a-call"
+                      href="/#book-a-call"
                       onClick={() => setOpen(false)}
                       variant="brand"
                       size="cta"
@@ -170,6 +177,20 @@ export function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Scroll progress bar — fills 0 → 100% as the page scrolls */}
+          <div
+            aria-hidden
+            className="relative h-0.5 w-full overflow-hidden bg-white/5"
+          >
+            <div
+              className="h-full origin-left bg-linear-to-r from-[#5c2e9d] via-[#a888c8] to-[#7c499d] shadow-[0_0_10px_rgba(168,136,200,0.6)]"
+              style={{
+                transform: `scaleX(${scrollProgress})`,
+                transition: "transform 80ms linear",
+              }}
+            />
+          </div>
         </div>
       </div>
     </header>

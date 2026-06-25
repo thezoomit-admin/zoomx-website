@@ -235,19 +235,41 @@
 }
 
 @layer utilities {
-  .app-container {
-    width: 100%;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+  .font-lato {
+    font-family: var(--font-lato), sans-serif;
   }
 
-  @media (min-width: 768px) {
+  /* Universal container — fluid padding that scales smoothly with the viewport
+   * (no abrupt jumps at breakpoints) and a max-width that grows modestly on
+   * very large displays so 2K/4K monitors aren't wasted on a narrow column. */
+  .app-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    /* clamp(min, preferred, max):
+     *  - 12px on the narrowest phones (320 – 360px wide)
+     *  - scales via 3.5vw across phones and tablets
+     *  - caps at 32px on laptops and beyond so padding never runs away */
+    padding-inline: clamp(0.75rem, 3.5vw, 2rem);
+  }
+
+  /* Modest max-width bumps for larger displays — keeps line lengths readable
+   * but lets large monitors use more of the screen instead of staying narrow. */
+  @media (min-width: 1536px) {
     .app-container {
-      padding-left: 32px;
-      padding-right: 32px;
+      max-width: 1320px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .app-container {
+      max-width: 1440px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .app-container {
+      max-width: 1600px;
     }
   }
 

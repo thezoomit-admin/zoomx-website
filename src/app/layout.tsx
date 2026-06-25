@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Syne } from "next/font/google";
+import { Inter, Lato, Poppins, Syne } from "next/font/google";
 
-import { Navbar } from "@/components/pages/home/Navbar";
-import { Footer } from "@/components/pages/home/Footer";
+import { AppLayout } from "@/components/layout/AppLayout";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,6 +22,13 @@ const syne = Syne({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-syne-next",
+  display: "swap",
+});
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
+  variable: "--font-lato",
   display: "swap",
 });
 
@@ -50,13 +56,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${poppins.variable} ${syne.variable}`}
+      className={`dark ${inter.variable} ${poppins.variable} ${syne.variable} ${lato.variable}`}
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
-        <Navbar />
-        {children}
-        <Footer />
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );

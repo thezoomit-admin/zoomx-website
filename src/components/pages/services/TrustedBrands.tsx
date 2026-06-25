@@ -90,11 +90,19 @@ export function TrustedBrands({
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-linear-to-r from-black to-transparent md:w-40"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 md:w-64"
+          style={{
+            background:
+              "linear-gradient(to right, #000 0%, rgba(0,0,0,0.95) 25%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
+          }}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-linear-to-l from-black to-transparent md:w-40"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 md:w-64"
+          style={{
+            background:
+              "linear-gradient(to left, #000 0%, rgba(0,0,0,0.95) 25%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
+          }}
         />
 
         {([

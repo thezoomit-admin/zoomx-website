@@ -16,11 +16,9 @@ export default function SecurityPage() {
   return (
     <main className="min-h-screen">
       <PageHero
+        name="Security"
         videoSrc="/video/intro_video.mp4"
-        eyebrow="Security"
-        titleGradient="Your Footage,"
-        titleWhite="Locked Down"
-        description="Every project is wrapped in NDAs, encrypted transfer, role-based access, and a backup pipeline you never have to think about."
+        description="Every project is wrapped in an NDA before a single frame moves. Raw footage travels over encrypted transfer only — no public links, no shared drives. Access is role-based, time-bound, and revoked the moment the project closes. Backups run on a triple-redundant pipeline across two regions, so nothing is ever a single drive failure away from gone. You ship the work; we handle the locks, the keys, and the audit trail underneath it."
       />
 
       <SecurityStack />

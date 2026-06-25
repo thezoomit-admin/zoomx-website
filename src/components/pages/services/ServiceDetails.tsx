@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+
+import { dropSlideKit } from "@/lib/animationKits";
 
 type Item = { title: string; description: string };
 type Stat = { value: string; label: string };
@@ -16,23 +18,7 @@ type ServiceDetailsProps = {
   stats?: Stat[];
 };
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.07, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+const kit = dropSlideKit;
 
 export function ServiceDetails({
   eyebrow,
@@ -56,15 +42,15 @@ export function ServiceDetails({
 
       <div className="app-container">
         <motion.div
-          variants={containerVariants}
+          variants={kit.container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid gap-8 lg:grid-cols-12 lg:gap-12"
+          viewport={{ once: false, margin: "-80px" }}
+          className="grid gap-8 lg:grid-cols-12 lg:gap-12 perspective-[1000px]"
         >
           {/* LEFT — visual */}
           <motion.div
-            variants={itemVariants}
+            variants={kit.visual}
             className="relative lg:col-span-5"
           >
             <div className="rounded-xl bg-linear-to-br from-[#7c499d]/60 via-[#a888c8]/30 to-[#5c2e9d]/60 p-[1px]">
@@ -96,7 +82,7 @@ export function ServiceDetails({
 
             {stats.length > 0 && (
               <motion.div
-                variants={itemVariants}
+                variants={kit.text}
                 className="mt-5 grid grid-cols-3 gap-3"
               >
                 {stats.map((stat) => (
@@ -125,35 +111,29 @@ export function ServiceDetails({
           </motion.div>
 
           {/* RIGHT — copy */}
-          <div className="lg:col-span-7">
-            <motion.p
-              variants={itemVariants}
-              className="font-syne text-[12px] font-semibold uppercase tracking-[0.2em] text-[#c9b3ec]"
-            >
+          <motion.div variants={kit.text} className="lg:col-span-7">
+            <p className="font-syne text-[12px] font-semibold uppercase tracking-[0.2em] text-[#c9b3ec]">
               {eyebrow}
-            </motion.p>
-            <motion.h2
-              variants={itemVariants}
-              className="mt-4 font-syne text-[clamp(1.8rem,3.4vw,2.4rem)] font-semibold leading-[1.1] tracking-tight"
-            >
+            </p>
+            <h2 className="mt-4 font-syne text-[clamp(1.8rem,3.4vw,2.4rem)] font-semibold leading-[1.1] tracking-tight">
               <span className="block text-gradient-brand">{titleGradient}</span>
               <span className="block text-white">{titleWhite}</span>
-            </motion.h2>
-            <motion.p
-              variants={itemVariants}
-              className="mt-5 max-w-[60ch] text-[15px] leading-[1.75] text-white/65"
-            >
+            </h2>
+            <p className="mt-5 max-w-[60ch] text-[15px] leading-[1.75] text-white/65">
               {summary}
-            </motion.p>
+            </p>
 
             <motion.ul
-              variants={containerVariants}
+              variants={kit.container}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2, margin: "-10% 0px -10% 0px" }}
               className="mt-8 grid gap-3 sm:grid-cols-2"
             >
               {items.map((item, i) => (
                 <motion.li
                   key={item.title}
-                  variants={itemVariants}
+                  variants={kit.text}
                   className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-white/25"
                 >
                   <div
@@ -181,7 +161,7 @@ export function ServiceDetails({
                 </motion.li>
               ))}
             </motion.ul>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

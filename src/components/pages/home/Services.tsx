@@ -85,25 +85,31 @@ type ServicesJson = {
 type ServiceCard = { slug: string; images: string[] };
 
 // Build 12 cards from services.json by interleaving services so adjacent
-// cards point to different slugs. Each card gets a non-overlapping slice of
-// its service's cardImages so no image appears on screen twice.
+// cards point to different slugs. Each card cycles through its service's
+// full cardImages pool (rotated per-card) so the loop completes fully and
+// no two same-service cards ever show the same image at the same moment.
 function buildServiceCards(): ServiceCard[] {
   const data = servicesContent as ServicesJson;
   const services = data.services.filter((s) => (s.cardImages?.length ?? 0) > 0);
   const totalCards = 12;
   if (services.length === 0) return [];
 
-  // Track how many cards per service we've already emitted.
   const usedPerService = new Map<string, number>();
   const cards: ServiceCard[] = [];
 
   for (let i = 0; i < totalCards; i += 1) {
     const svc = services[i % services.length];
-    const usedSoFar = usedPerService.get(svc.slug) ?? 0;
     const pool = svc.cardImages ?? [];
-    const imagesPerCard = 2;
-    const start = (usedSoFar * imagesPerCard) % pool.length;
-    const images = Array.from({ length: imagesPerCard }, (_, k) => pool[(start + k) % pool.length]);
+    const cardsPerService = Math.ceil(totalCards / services.length);
+    const usedSoFar = usedPerService.get(svc.slug) ?? 0;
+
+    // Rotate each card's view of the pool by a fraction so siblings from the
+    // same service are pre-offset in the sequence. Combined with the per-card
+    // temporal `delayOffset` in FlowCard, this guarantees that at any moment
+    // each card is on a different image in the cycle.
+    const rotation = Math.floor((usedSoFar * pool.length) / cardsPerService) % pool.length;
+    const images = pool.slice(rotation).concat(pool.slice(0, rotation));
+
     cards.push({ slug: svc.slug, images });
     usedPerService.set(svc.slug, usedSoFar + 1);
   }
@@ -112,8 +118,8 @@ function buildServiceCards(): ServiceCard[] {
 
 const SERVICE_CARDS = buildServiceCards();
 
-const MIN_IMAGE_DURATION = 0.6;
-const MAX_CYCLE_DURATION = 12;
+const MIN_IMAGE_DURATION = 1.0;
+const MAX_CYCLE_DURATION = 24;
 
 type FlowDirection = "up" | "down" | "left" | "right";
 

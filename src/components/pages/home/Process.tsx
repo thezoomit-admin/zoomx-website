@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from "rea
 import { PostConfetti } from "@/components/pages/home/PostConfetti";
 import { Image } from "@/components/shared/Image";
 import { Button } from "@/components/ui/button";
+import { ANIMATION_KITS, type AnimationKit } from "@/lib/animationKits";
 import { cn } from "@/lib/utils";
 
 // const GLOW = "/67b5dd36b3452df31baf9345_Glow.avif";
@@ -78,6 +79,16 @@ const THUMB_KEYFRAMES: ThumbKeyframe[] = [
     iconY: -56,
   },
 ];
+
+/** 0 → 1 as the viewport center scrolls from the top of `el` to its bottom. */
+function computeLineFillProgress(el: HTMLElement): number {
+  const rect = el.getBoundingClientRect();
+  const vh = typeof window !== "undefined" ? window.innerHeight : 0;
+  if (vh <= 0 || rect.height <= 0) return 0;
+  const viewportCenter = vh * 0.45;
+  const scrolled = viewportCenter - rect.top;
+  return clamp01(scrolled / rect.height);
+}
 
 /** Visual box center vs viewport center (+ = below center / scroll toward top) */
 function computeThumbnailViewportOffset(el: HTMLElement): number {
@@ -660,6 +671,9 @@ const STEPS: ProcessStep[] = [
 ];
 
 export function Process() {
+  const stepsRef = useRef<HTMLOListElement>(null);
+  const fillProgress = useScrollProgress(stepsRef, computeLineFillProgress);
+
   return (
     <section id="process" className="relative overflow-hidden py-8 md:py-10">
       <div className="container mx-auto px-6 md:px-8">
@@ -672,36 +686,76 @@ export function Process() {
         </h2>
 
         <div className="relative mx-auto mt-16 max-w-[1100px] md:mt-20">
-          <ol className="flex relative flex-col gap-16">
+          <ol ref={stepsRef} className="flex relative flex-col gap-16">
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-10 hidden h-[97%] w-px -translate-x-1/2 bg-white/10 lg:block z-[20]"
-            />
-            {STEPS.map((step) => (
-              <li key={step.num} className="relative">
-                <div className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2">
-                  <StepMarker num={step.num} />
-                </div>
-
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                  <div
-                    className={cn(
-                      "flex justify-center",
-                      step.textOnLeft
-                        ? "lg:justify-end lg:pr-8 xl:pr-12"
-                        : "lg:order-2 lg:justify-start lg:pl-8 xl:pl-12",
-                    )}
+              className="pointer-events-none absolute left-1/2 top-10 z-0 hidden h-[97%] w-0.5 -translate-x-1/2 bg-white/10 lg:block"
+            >
+              <div
+                className="absolute inset-x-0 top-0 origin-top"
+                style={{
+                  height: `${fillProgress * 100}%`,
+                  background:
+                    "linear-gradient(180deg, rgba(168,136,200,0) 0%, #a888c8 12%, #7c499d 50%, #5c2e9d 100%)",
+                  boxShadow: "0 0 14px rgba(124, 73, 157, 0.65)",
+                  transition: "height 120ms linear",
+                }}
+              />
+              <div
+                className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#a888c8] opacity-90 shadow-[0_0_18px_rgba(168,136,200,0.9),0_0_4px_rgba(255,255,255,0.9)]"
+                style={{
+                  top: `${fillProgress * 100}%`,
+                  transition: "top 120ms linear",
+                }}
+              />
+            </div>
+            {STEPS.map((step, i) => {
+              const kit = ANIMATION_KITS[i % ANIMATION_KITS.length];
+              return (
+                <motion.li
+                  key={step.num}
+                  variants={kit.container}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ amount: 0.3, margin: "-80px" }}
+                  className="relative"
+                  style={{ transformPerspective: 1200 }}
+                >
+                  <motion.div
+                    variants={kit.marker}
+                    className="relative z-30 mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:mb-0 lg:-translate-x-1/2"
                   >
-                    <ProcessText
-                      badge={step.badge}
-                      title={step.title}
-                      description={step.description}
-                    />
+                    <StepMarker num={step.num} />
+                  </motion.div>
+
+                  <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                    <motion.div
+                      variants={kit.text}
+                      style={{ transformPerspective: 1000 }}
+                      className={cn(
+                        "flex justify-center",
+                        step.textOnLeft
+                          ? "lg:justify-end lg:pr-8 xl:pr-12"
+                          : "lg:order-2 lg:justify-start lg:pl-8 xl:pl-12",
+                      )}
+                    >
+                      <ProcessText
+                        badge={step.badge}
+                        title={step.title}
+                        description={step.description}
+                      />
+                    </motion.div>
+                    <motion.div
+                      variants={kit.visual}
+                      style={{ transformPerspective: 1000 }}
+                      className={cn(!step.textOnLeft && "lg:order-1")}
+                    >
+                      {step.visual}
+                    </motion.div>
                   </div>
-                  <div className={cn(!step.textOnLeft && "lg:order-1")}>{step.visual}</div>
-                </div>
-              </li>
-            ))}
+                </motion.li>
+              );
+            })}
           </ol>
 
           <div className="mt-16 flex justify-center md:mt-20">

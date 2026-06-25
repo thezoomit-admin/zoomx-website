@@ -7,8 +7,7 @@ import { CtaSection } from "@/components/shared/CtaSection";
 import { PageHero } from "@/components/shared/PageHero";
 import caseStudyContent from "@/data/case-study.json";
 
-const { allPage, cases } = caseStudyContent as unknown as {
-  allPage: { heading: { eyebrow: string; titleGradient: string; titleWhite: string } };
+const { cases } = caseStudyContent as unknown as {
   cases: CaseStudy[];
 };
 
@@ -19,16 +18,12 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudyIndexPage() {
-  const { heading } = allPage;
-
   return (
     <main className="min-h-screen">
       <PageHero
+        name="Case Studies"
         videoSrc="/video/intro_video.mp4"
-        eyebrow={heading.eyebrow}
-        titleGradient={heading.titleGradient}
-        titleWhite={heading.titleWhite}
-        description="Six teams. Six different goals. Here's what shipping the right video, consistently, looked like in practice."
+        description="Six teams. Six different goals. Six channels with their own bottleneck. Here's what shipping the right video, on a steady cadence, actually looked like in practice — the format we chose, the rhythm we held, and the outcomes the work earned in the first ninety days."
       />
 
       <section id="all-cases" className="relative overflow-hidden pb-8 md:pb-10">

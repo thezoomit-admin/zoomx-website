@@ -3,6 +3,12 @@
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef } from "react";
 
+import {
+  type AnimationKit,
+  dropSlideKit,
+  explosionKit,
+  spinKit,
+} from "@/lib/animationKits";
 import { cn } from "@/lib/utils";
 
 type Item = { title: string; description: string };
@@ -26,23 +32,6 @@ export type GrowthBlock = {
   title: string;
   summary?: string;
   stats: { value: string; label: string }[];
-};
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
 };
 
 const listContainerVariants: Variants = {
@@ -74,28 +63,6 @@ const punchVariants: Variants = {
   },
 };
 
-const numberVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.55,
-    rotate: -6,
-    filter: "blur(14px)",
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    rotate: 0,
-    filter: "blur(0px)",
-    transition: {
-      type: "spring",
-      stiffness: 120,
-      damping: 18,
-      mass: 1,
-      restDelta: 0.001,
-    },
-  },
-};
-
 function SectionGlow({ side = "left" }: { side?: "left" | "right" }) {
   return (
     <div
@@ -118,6 +85,7 @@ function BlockShell({
   title,
   summary,
   glow,
+  kit,
   children,
 }: {
   num: string;
@@ -125,6 +93,7 @@ function BlockShell({
   title: string;
   summary?: string;
   glow: "left" | "right";
+  kit: AnimationKit;
   children: React.ReactNode;
 }) {
   const numberRef = useRef<HTMLDivElement>(null);
@@ -136,11 +105,11 @@ function BlockShell({
 
   return (
     <motion.section
-      variants={containerVariants}
+      variants={kit.container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className="relative isolate"
+      viewport={{ once: false, margin: "-80px" }}
+      className="relative isolate perspective-[1000px]"
     >
       <SectionGlow side={glow} />
 
@@ -149,10 +118,7 @@ function BlockShell({
           <div className="sticky top-24 flex flex-col gap-3">
             <motion.div ref={numberRef} style={{ y: parallaxY }} className="relative">
               <motion.div
-                variants={numberVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3, margin: "-10% 0px -10% 0px" }}
+                variants={kit.marker}
                 style={{ transformOrigin: "left center" }}
                 className="relative"
               >
@@ -179,7 +145,7 @@ function BlockShell({
               </motion.div>
             </motion.div>
             <motion.p
-              variants={itemVariants}
+              variants={kit.text}
               className="font-syne text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c9b3ec]"
             >
               {eyebrow}
@@ -189,7 +155,7 @@ function BlockShell({
 
         <div className="md:col-span-8">
           <motion.h2
-            variants={itemVariants}
+            variants={kit.text}
             className="font-syne text-[clamp(1.25rem,2.6vw,1.85rem)] font-semibold leading-[1.2] tracking-tight"
           >
             <span
@@ -206,14 +172,14 @@ function BlockShell({
 
           {summary && (
             <motion.p
-              variants={itemVariants}
+              variants={kit.text}
               className="mt-3 max-w-[60ch] text-[14px] leading-[1.7] text-white/65 md:text-[15px]"
             >
               {summary}
             </motion.p>
           )}
 
-          <motion.div variants={itemVariants} className="mt-6 md:mt-7">
+          <motion.div variants={kit.visual} className="mt-6 md:mt-7">
             {children}
           </motion.div>
         </div>
@@ -233,7 +199,7 @@ function FlowList({ items, tone }: { items: Item[]; tone: "warm" | "cool" }) {
       variants={listContainerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2, margin: "-10% 0px -10% 0px" }}
+      viewport={{ once: false, amount: 0.2, margin: "-10% 0px -10% 0px" }}
       className="flex flex-col"
     >
       {items.map((item, i) => (
@@ -277,50 +243,219 @@ function FlowList({ items, tone }: { items: Item[]; tone: "warm" | "cool" }) {
   );
 }
 
-function StatRow({ stats }: { stats: GrowthBlock["stats"] }) {
+function GrowthChart({ stats }: { stats: GrowthBlock["stats"] }) {
+  // Ascending visual heights — symbolic growth, not literal stat values
+  const heights = [42, 58, 76, 95];
+
+  // SVG geometry — viewBox is 400 x 220 (line area sits above bars)
+  const points = heights.map((h, i) => {
+    const x = 50 + i * 100;
+    // Bar tops sit at: chartHeight (200) - (h% of 160) so y = 200 - (h/100 * 160)
+    const y = 200 - (h / 100) * 160;
+    return { x, y };
+  });
+  const polyline = points.map((p) => `${p.x},${p.y}`).join(" ");
+
+  const last = points[points.length - 1];
+  const prev = points[points.length - 2];
+  // Arrowhead angle from last segment
+  const dx = last.x - prev.x;
+  const dy = last.y - prev.y;
+  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+
   return (
-    <motion.dl
-      variants={listContainerVariants}
+    <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2, margin: "-10% 0px -10% 0px" }}
-      className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-2 md:grid-cols-4 md:gap-x-4"
+      viewport={{ once: false, amount: 0.25, margin: "-10% 0px -10% 0px" }}
+      variants={listContainerVariants}
+      className="relative rounded-2xl border border-white/10 bg-linear-to-br from-[#1a0f2e]/60 via-[#0f0820]/40 to-[#1a0f2e]/60 p-5 backdrop-blur-sm md:p-7"
     >
-      {stats.map((stat, i) => (
-        <motion.div
-          key={stat.label}
-          variants={punchVariants}
-          style={{ transformOrigin: "left center" }}
-          className="group relative"
+      {/* Subtle grid background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-5 rounded-xl opacity-[0.12] md:inset-7"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      {/* Chart area */}
+      <div className="relative h-[240px] w-full md:h-[280px]">
+        {/* Horizontal guide lines */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="h-px w-full bg-white/[0.06]" />
+          ))}
+        </div>
+
+        {/* Bars */}
+        <div className="absolute inset-x-0 bottom-0 flex h-full items-end justify-around gap-3 px-2 md:gap-5">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              variants={punchVariants}
+              className="group relative flex h-full w-1/5 flex-col items-center justify-end"
+            >
+              {/* Value label above bar */}
+              <motion.span
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ delay: 0.6 + i * 0.15, duration: 0.45 }}
+                className="mb-2 font-syne text-[clamp(0.95rem,1.8vw,1.3rem)] font-bold leading-none tracking-tight"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #ffffff 0%, #d6c4ee 50%, #a888c8 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {stat.value}
+              </motion.span>
+
+              {/* Bar */}
+              <motion.div
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{
+                  duration: 0.9,
+                  delay: i * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                style={{
+                  height: `${heights[i]}%`,
+                  transformOrigin: "bottom",
+                  background:
+                    "linear-gradient(180deg, #a888c8 0%, #7c499d 55%, #3b1f63 100%)",
+                  boxShadow:
+                    "0 8px 28px -8px rgba(168,136,200,0.55), inset 0 1px 0 rgba(255,255,255,0.2)",
+                }}
+                className="relative w-3/4 max-w-16 rounded-t-lg transition-transform duration-500 group-hover:scale-x-105 md:w-3/5"
+              >
+                {/* Shine highlight on bar */}
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-1/3 rounded-t-lg bg-linear-to-b from-white/25 to-transparent"
+                />
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Trend line + arrow overlay */}
+        <svg
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          viewBox="0 0 400 220"
+          preserveAspectRatio="none"
         >
-          <span
-            aria-hidden
-            className="absolute -left-3 top-1 h-[42%] w-px scale-y-0 origin-top rounded-full transition-transform duration-700 group-hover:scale-y-100"
-            style={{
-              background:
-                "linear-gradient(180deg, #a888c8 0%, transparent 100%)",
-            }}
+          <defs>
+            <linearGradient id="trendStroke" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#d6c4ee" />
+              <stop offset="100%" stopColor="#a888c8" />
+            </linearGradient>
+            <filter id="trendGlow">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Glow trail (thicker, faded) */}
+          <motion.polyline
+            points={polyline}
+            fill="none"
+            stroke="#a888c8"
+            strokeOpacity={0.35}
+            strokeWidth={10}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 0.35 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 1.4, ease: "easeOut", delay: 0.5 }}
           />
-          <dt className="font-syne text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/40">
-            {String(i + 1).padStart(2, "0")}
-          </dt>
-          <dd
-            className="mt-2 font-syne text-[clamp(1.7rem,3.8vw,2.5rem)] font-bold leading-[0.95] tracking-tight"
-            style={{
-              background:
-                "linear-gradient(135deg, #ffffff 0%, #d6c4ee 50%, #a888c8 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
+
+          {/* Main trend line */}
+          <motion.polyline
+            points={polyline}
+            fill="none"
+            stroke="url(#trendStroke)"
+            strokeWidth={3.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#trendGlow)"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 1.4, ease: "easeOut", delay: 0.5 }}
+          />
+
+          {/* Point dots */}
+          {points.map((p, i) => (
+            <motion.circle
+              key={i}
+              cx={p.x}
+              cy={p.y}
+              r={5}
+              fill="#ffffff"
+              stroke="#7c499d"
+              strokeWidth={2}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false, amount: 0.4 }}
+              transition={{
+                delay: 0.6 + i * 0.18,
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            />
+          ))}
+
+          {/* Arrow tip at the end of the line */}
+          <motion.g
+            transform={`translate(${last.x}, ${last.y}) rotate(${angle})`}
+            initial={{ opacity: 0, scale: 0 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ delay: 1.6, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            {stat.value}
-          </dd>
-          <p className="mt-1.5 text-[12.5px] font-medium text-white/55 md:text-[13px]">
-            {stat.label}
-          </p>
-        </motion.div>
-      ))}
-    </motion.dl>
+            <path
+              d="M 0 -8 L 14 0 L 0 8 Z"
+              fill="url(#trendStroke)"
+              filter="url(#trendGlow)"
+            />
+          </motion.g>
+        </svg>
+      </div>
+
+      {/* Bottom labels */}
+      <div className="mt-4 flex items-start justify-around gap-3 px-2 md:gap-5">
+        {stats.map((stat, i) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ delay: 0.8 + i * 0.1, duration: 0.4 }}
+            className="flex w-1/5 flex-col items-center text-center"
+          >
+            <span className="font-syne text-[9.5px] font-semibold uppercase tracking-[0.18em] text-white/35">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="mt-1 text-[11.5px] font-medium leading-tight text-white/60 md:text-[12.5px]">
+              {stat.label}
+            </span>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
@@ -355,6 +490,7 @@ export function CaseStudyDetailsBlocks({
             title={challenges.title}
             summary={challenges.summary}
             glow="left"
+            kit={spinKit}
           >
             <FlowList items={challenges.items} tone="warm" />
           </BlockShell>
@@ -365,6 +501,7 @@ export function CaseStudyDetailsBlocks({
             title={solutions.title}
             summary={solutions.summary}
             glow="right"
+            kit={dropSlideKit}
           >
             <FlowList items={solutions.items} tone="cool" />
           </BlockShell>
@@ -375,8 +512,9 @@ export function CaseStudyDetailsBlocks({
             title={growth.title}
             summary={growth.summary}
             glow="left"
+            kit={explosionKit}
           >
-            <StatRow stats={growth.stats} />
+            <GrowthChart stats={growth.stats} />
           </BlockShell>
         </div>
       </div>

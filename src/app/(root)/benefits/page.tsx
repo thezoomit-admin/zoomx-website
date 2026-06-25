@@ -16,11 +16,9 @@ export default function BenefitsPage() {
   return (
     <main className="min-h-screen">
       <PageHero
+        name="Benefits"
         videoSrc="/video/intro_video.mp4"
-        eyebrow="Benefits"
-        titleGradient="A Content Team"
-        titleWhite="That Compounds"
-        description="Beyond the deliverables, working with us means a steady weekly rhythm, a predictable monthly cost, and a team that compounds with you instead of restarting every quarter."
+        description="Beyond the deliverables, working with ZOOMX means a steady weekly rhythm, a predictable monthly cost, and a senior team that compounds with you instead of restarting every quarter. You stop renegotiating scope, stop chasing freelancers, stop firefighting deadlines. What you get back is a publishing engine that runs the same week you're traveling as the week you're at your desk — and a cost line you can plan a year around."
       />
 
       <BenefitsCadence />
