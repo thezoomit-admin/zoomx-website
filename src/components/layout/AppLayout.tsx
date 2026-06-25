@@ -13,8 +13,10 @@ export function AppLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      {children}
-      <Footer />
+      <main className="pb-20 lg:pb-0">
+        {children}
+        <Footer />
+      </main>
       <MobileBottomNav />
     </>
   );
