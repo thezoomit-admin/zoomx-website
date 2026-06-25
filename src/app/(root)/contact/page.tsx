@@ -15,6 +15,7 @@ export default function ContactPage() {
     <main className="min-h-screen">
       <PageHero
         name="Contact Us"
+        imageSrc="/policy/contact2.png"
         videoSrc="/video/intro_video.mp4"
         description="Tell us about the channel, the offer, and the bottleneck. We reply inside one business day with a plan that fits the format you publish, the cadence you need, and a price you can put on a calendar — plus a sample cut on your brand so the fit is obvious before you sign anything."
       />
