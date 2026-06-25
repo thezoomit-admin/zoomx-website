@@ -12,7 +12,7 @@ const linkColumns = [
       { label: "About Us", href: "/#about" },
       { label: "Testimonials", href: "/#reviews" },
       { label: "Case Study", href: "/case-study" },
-      { label: "Contact Us", href: "/#book-a-call" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
   {
@@ -194,9 +194,13 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white transition-all hover:border-white hover:bg-gradient-to-r hover:from-[#5c2e9d] hover:to-[#7c499d]"
+                  className="relative inline-flex h-10 w-10 items-center justify-center rounded-[10px] text-white shadow-[0_8px_32px_-4px_rgba(168,136,200,0.55)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-4px_rgba(168,136,200,0.75)] before:absolute before:inset-px before:rounded-[9px] before:bg-[#272727] before:content-['']"
+                  style={{
+                    background:
+                      "linear-gradient(45deg, #5c2e9d, #7c499d, #a888c8)",
+                  }}
                 >
-                  {social.icon}
+                  <span className="relative z-10 inline-flex">{social.icon}</span>
                 </a>
               ))}
             </div>

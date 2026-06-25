@@ -15,11 +15,9 @@ export default function PortfolioPage() {
   return (
     <main className="min-h-screen">
       <PageHero
+        name="Portfolio"
         videoSrc="/video/intro_video.mp4"
-        eyebrow="Portfolio"
-        titleGradient="Selected Work"
-        titleWhite="From The Studio"
-        description="Long-form YouTube edits, Shorts, SaaS demos, ad creatives, and VSLs — sorted by format so you can find what looks closest to your channel."
+        description="A selected cut of recent work across long-form YouTube edits, Shorts, SaaS demos, ad creatives, and VSLs. Pieces are sorted by format so you can jump straight to what looks closest to your channel. Each one shipped on cadence, on brand, and with the same review pipeline we run for every client — no one-off showpieces, just the standard."
       />
 
       <Work />

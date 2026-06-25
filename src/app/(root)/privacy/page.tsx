@@ -99,6 +99,7 @@ export default function PrivacyPage() {
       intro="What data we collect, how we use it, and how we keep your raw footage, brand assets, and contact details safe — written in plain English, not legalese."
       lastUpdated="June 2026"
       sections={sections}
+      imageSrc="/policy/privicypolicy2.png"
     />
   );
 }

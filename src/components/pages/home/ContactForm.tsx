@@ -480,7 +480,7 @@ function ContactCard() {
             <p className="font-syne text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ffffff80]">
               Follow Us
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -488,12 +488,16 @@ function ContactCard() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-white/3 text-[#ffffffb3] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#a888c8]/50 hover:bg-white/8 hover:text-white"
+                  className="relative inline-flex h-10 w-10 items-center justify-center rounded-[10px] text-white shadow-[0_8px_32px_-4px_rgba(168,136,200,0.55)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-4px_rgba(168,136,200,0.75)] before:absolute before:inset-px before:rounded-[9px] before:bg-[#272727] before:content-['']"
+                  style={{
+                    background:
+                      "linear-gradient(45deg, #5c2e9d, #7c499d, #a888c8)",
+                  }}
                 >
                   <svg
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="h-3.5 w-3.5"
+                    className="relative z-10 h-4 w-4"
                   >
                     <path d={social.path} />
                   </svg>

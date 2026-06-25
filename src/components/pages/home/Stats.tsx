@@ -323,13 +323,13 @@ export function Stats() {
   const lineMixes = HEADLINE_LINES.map((_, i) => lineWhiteMix(i, headlineProgress));
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden py-8 md:py-10 border-y">
+    <section ref={sectionRef} className="relative overflow-hidden py-8 md:py-10">
       <div className="relative container mx-auto w-full px-6 md:px-8">
         <div ref={headlineRef} className="z-10 transform-3d text-center -space-y-2.5">
           {HEADLINE_LINES.map((text, i) => (
             <h2
               key={text}
-              className="font-syne text-[30px] font-semibold md:text-[38px]"
+              className="font-lato text-[30px] font-semibold md:text-[38px]"
               style={lineColorStyle(lineMixes[i])}
             >
               {text}
@@ -424,22 +424,22 @@ export function Stats() {
                     <NumberFlow
                       value={flowValue}
                       className={cn(
-                        "font-syne text-[44px] font-bold leading-[0.85] tracking-tight text-white md:text-[42px] lg:text-[55px]",
+                        "font-lato text-[44px] font-bold leading-[0.85] tracking-tight text-white md:text-[42px] lg:text-[55px]",
                         "tabular-nums",
                       )}
                     />
                   </div>
                   <div className={cn(isSecond && "md:text-right")}>
-                    <p className="font-syne text-2xl font-semibold leading-none text-white md:text-[26px] lg:text-[38px]">
+                    <p className="font-lato text-2xl font-semibold leading-none text-white md:text-[26px] lg:text-[38px]">
                       {stat.unit}
                     </p>
-                    <p className="mt-1 font-syne text-base font-medium text-white">{stat.label}</p>
+                    <p className="mt-1 font-lato text-base font-medium text-white">{stat.label}</p>
                   </div>
                 </div>
 
                 <p
                   className={cn(
-                    "font-syne text-[18px] font-semibold tracking-wide text-[#fff9]",
+                    "font-lato text-[18px] font-semibold tracking-wide text-[#fff9]",
                     isFirst && "md:self-start",
                     isSecond && "md:self-end",
                     isThird && "md:self-center",

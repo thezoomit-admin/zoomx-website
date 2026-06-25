@@ -77,6 +77,7 @@ export default function TermsPage() {
       intro="The ground rules for working with ZOOMX — what we promise to deliver, what we ask of you, and how we handle the in-between."
       lastUpdated="June 2026"
       sections={sections}
+      imageSrc="/policy/termsand-condiction2.png"
     />
   );
 }

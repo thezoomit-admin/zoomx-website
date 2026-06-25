@@ -17,11 +17,9 @@ export default function QualityPage() {
   return (
     <main className="min-h-screen">
       <PageHero
+        name="Quality"
         videoSrc="/video/intro_video.mp4"
-        eyebrow="Quality"
-        titleGradient="Three Review Passes,"
-        titleWhite="Before You See It"
-        description="Every cut goes through a brand check, a senior review, and a delivery QC before it ever hits your inbox."
+        description="Every cut moves through three review passes before it ever lands in your inbox — a brand check against your style guide, a senior creative review on hook and pacing, and a final delivery QC on captions, codec, and aspect. Nothing ships rough. Nothing ships off-brand. Nothing ships with a wrong export. The standard is the same on the first month as the twelfth, and it's the reason our clients stop opening cuts with a held breath."
       />
 
       <QualityShowcase />

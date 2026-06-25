@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
+import { PageHero } from "@/components/shared/PageHero";
 import { Button } from "@/components/ui/button";
 
 export type LegalSection = {
@@ -19,23 +20,8 @@ type LegalPageProps = {
   lastUpdated: string;
   sections: LegalSection[];
   tableOfContents?: boolean;
-};
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.07, delayChildren: 0.08 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
+  /** Image shown in the page hero's media card. Falls back to the default video. */
+  imageSrc?: string;
 };
 
 function slugify(text: string) {
@@ -52,80 +38,46 @@ export function LegalPage({
   lastUpdated,
   sections,
   tableOfContents = true,
+  imageSrc,
 }: LegalPageProps) {
+  const pageName = `${titleGradient} ${titleWhite}`.trim();
+
   return (
-    <main className="relative min-h-screen overflow-hidden pt-28 pb-16 md:pt-32 md:pb-24">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, rgba(124,73,157,0.18), transparent 60%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-40 top-40 -z-10 h-[420px] w-[420px] rounded-full bg-[#5c2e9d]/15 blur-[140px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 top-[420px] -z-10 h-[360px] w-[360px] rounded-full bg-[#7c499d]/20 blur-[120px]"
+    <main className="relative min-h-screen overflow-hidden pb-16 md:pb-24">
+      <PageHero
+        name={pageName}
+        videoSrc={imageSrc ? undefined : "/video/intro_video.mp4"}
+        imageSrc={imageSrc}
+        description={intro}
       />
 
       <div className="app-container">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mx-auto max-w-[820px] text-center"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="font-syne text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-tight"
-          >
-            <span className="block text-gradient-brand">{titleGradient}</span>
-            <span className="block text-white">{titleWhite}</span>
-          </motion.h1>
+        <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#c9b3ec]">
+          Last updated · {lastUpdated}
+        </p>
 
-          <motion.p
-            variants={itemVariants}
-            className="mx-auto mt-5 max-w-[62ch] text-[15px] leading-[1.75] text-white/65 md:text-[16px]"
-          >
-            {intro}
-          </motion.p>
-
-          <motion.p
-            variants={itemVariants}
-            className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-white/45"
-          >
-            Last updated · {lastUpdated}
-          </motion.p>
-        </motion.div>
-
-        <div className="mx-auto mt-14 grid max-w-[1100px] gap-10 md:mt-16 lg:grid-cols-[260px_1fr] lg:gap-14">
+        <div className="mt-8 w-full md:mt-10">
           {tableOfContents && (
-            <aside className="hidden lg:block">
-              <div className="sticky top-28">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">
-                  On this page
-                </p>
-                <ol className="mt-5 space-y-0.5">
-                  {sections.map((s, i) => (
-                    <li key={s.heading} className="relative">
-                      <a
-                        href={`#${slugify(s.heading)}`}
-                        className="group flex items-start gap-3 rounded-md py-2 pr-3 text-[13.5px] leading-snug text-white/60 transition-all duration-200 hover:translate-x-0.5 hover:text-white"
-                      >
-                        <span className="font-mono text-[10.5px] font-medium tracking-wider text-white/30 transition-colors group-hover:text-[#c9b3ec]">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="pt-px">{s.heading}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </aside>
+            <nav aria-label="On this page" className="mb-12 md:mb-14">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">
+                On this page
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {sections.map((s, i) => (
+                  <li key={s.heading}>
+                    <a
+                      href={`#${slugify(s.heading)}`}
+                      className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[12.5px] text-white/70 transition-all duration-200 hover:border-[#a888c8]/40 hover:bg-[#7c499d]/15 hover:text-white"
+                    >
+                      <span className="font-mono text-[10.5px] font-medium tracking-wider text-white/35 transition-colors group-hover:text-[#c9b3ec]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>{s.heading}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           )}
 
           <article className="min-w-0">

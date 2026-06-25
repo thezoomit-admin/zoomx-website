@@ -68,6 +68,7 @@ export default function RefundPage() {
       intro="If something does not land, we make it right — either with another pass or with your money back. Here is exactly how that works."
       lastUpdated="June 2026"
       sections={sections}
+      imageSrc="/policy/refundpolicy2.png"
     />
   );
 }

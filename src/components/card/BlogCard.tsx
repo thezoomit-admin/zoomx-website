@@ -34,11 +34,15 @@ export function BlogCard({
   const isHorizontal = layout === "horizontal";
 
   const cardClasses = isHorizontal
-    ? `group flex items-center gap-6 overflow-hidden rounded-xl transition-colors duration-300 ${
-        isLight ? "bg-white border-transparent shadow-sm hover:shadow-md" : "border-[#ffffff1f] bg-[#0a0a0a] hover:border-[#ffffff33]"
+    ? `group flex items-center gap-6 overflow-hidden rounded-xl transition-all duration-500 ease-out hover:-translate-y-1 ${
+        isLight
+          ? "bg-white border border-transparent shadow-sm hover:border-[#a888c8]/40 hover:shadow-[0_25px_60px_-15px_rgba(124,73,157,0.4)]"
+          : "border border-[#ffffff1f] bg-[#0a0a0a] hover:border-[#a888c8]/60 hover:shadow-[0_25px_60px_-15px_rgba(124,73,157,0.65),0_0_0_1px_rgba(168,136,200,0.25)]"
       }`
-    : `group flex h-full flex-col overflow-hidden rounded-xl transition-colors duration-300 ${
-        isLight ? "bg-white border border-gray-100 shadow-sm hover:border-gray-300 hover:shadow-md" : "border border-[#ffffff1f] bg-[#0a0a0a] hover:border-[#ffffff33]"
+    : `group flex h-full flex-col overflow-hidden rounded-xl transition-all duration-500 ease-out hover:-translate-y-1.5 ${
+        isLight
+          ? "bg-white border border-gray-100 shadow-sm hover:border-[#a888c8]/40 hover:shadow-[0_30px_70px_-15px_rgba(124,73,157,0.4)]"
+          : "border border-[#ffffff1f] bg-[#0a0a0a] hover:border-[#a888c8]/60 hover:shadow-[0_30px_70px_-15px_rgba(124,73,157,0.65),0_0_0_1px_rgba(168,136,200,0.25)]"
       }`;
 
   const imageContainerClasses = isHorizontal

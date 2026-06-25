@@ -86,7 +86,7 @@ export function VideoGallery({
               variants={itemVariants}
               type="button"
               onClick={() => setActiveId(video.id)}
-              className="group relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-[#0a0612] text-left transition-all duration-500 hover:-translate-y-1 hover:border-white/25"
+              className="group relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-[#0a0612] text-left transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-[#a888c8]/60 hover:shadow-[0_30px_70px_-15px_rgba(124,73,157,0.65),0_0_0_1px_rgba(168,136,200,0.25)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

@@ -96,15 +96,7 @@ export default async function ServiceDetailsPage(props: Props) {
 
   return (
     <main className="min-h-screen">
-      <ServiceHero
-        videoSrc={hero.videoSrc}
-        eyebrow={hero.eyebrow}
-        titleGradient={hero.titleGradient}
-        titleWhite={hero.titleWhite}
-        description={hero.description}
-        primaryAction={hero.primaryAction}
-        secondaryAction={hero.secondaryAction}
-      />
+      <ServiceHero videoSrc={hero.videoSrc} />
 
       <TrustedBrands
         eyebrow={trustedBrands.eyebrow}

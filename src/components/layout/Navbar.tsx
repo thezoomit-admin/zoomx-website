@@ -123,13 +123,18 @@ export function Navbar() {
             {open && (
               <motion.div
                 key="mobile-menu"
-                className="overflow-hidden md:hidden"
+                className="relative overflow-hidden md:hidden"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  backgroundColor: "#090909",
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(124, 73, 157, 0.22) 0%, rgba(60, 30, 100, 0.12) 50%, #090909 100%)",
+                }}
               >
-                <ul className="flex flex-col gap-3 border-t border-white/10 px-4 pb-4 pt-3">
+                <ul className="relative flex flex-col gap-3 border-t border-white/10 px-4 pb-4 pt-3">
                   {links.map((l) => {
                     const isRoute = l.href.startsWith("/");
                     const mobileLinkClassName =

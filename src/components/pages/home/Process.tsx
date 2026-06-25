@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from "rea
 import { PostConfetti } from "@/components/pages/home/PostConfetti";
 import { Image } from "@/components/shared/Image";
 import { Button } from "@/components/ui/button";
+import { ANIMATION_KITS, type AnimationKit } from "@/lib/animationKits";
 import { cn } from "@/lib/utils";
 
 // const GLOW = "/67b5dd36b3452df31baf9345_Glow.avif";
@@ -314,191 +315,6 @@ const scriptingWordVariants: Variants = {
     transition: { staggerChildren: 0.04, staggerDirection: -1 },
   },
 };
-
-type AnimationKit = {
-  container: Variants;
-  marker: Variants;
-  text: Variants;
-  visual: Variants;
-};
-
-const baseContainer = (stagger = 0.18): Variants => ({
-  hidden: {},
-  visible: { transition: { staggerChildren: stagger, delayChildren: 0.04 } },
-});
-
-// 01 — "Spin In": marker spins 360°, text whips in from the side, visual zooms
-// in from a rotated state. Video-editor first-take vibe.
-const spinKit: AnimationKit = {
-  container: baseContainer(0.18),
-  marker: {
-    hidden: { opacity: 0, scale: 0, rotate: -360 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: { type: "spring", stiffness: 220, damping: 12, mass: 0.8 },
-    },
-  },
-  text: {
-    hidden: { opacity: 0, x: -80, skewX: -8, filter: "blur(8px)" },
-    visible: {
-      opacity: 1,
-      x: 0,
-      skewX: 0,
-      filter: "blur(0px)",
-      transition: { type: "spring", stiffness: 160, damping: 18, mass: 0.9 },
-    },
-  },
-  visual: {
-    hidden: { opacity: 0, scale: 0.4, rotate: -45 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: { type: "spring", stiffness: 140, damping: 16, mass: 1 },
-    },
-  },
-};
-
-// 02 — "Drop & Slide": marker drops from above, text glides from the right,
-// visual swings in from the side with a subtle scale.
-const dropSlideKit: AnimationKit = {
-  container: baseContainer(0.16),
-  marker: {
-    hidden: { opacity: 0, y: -140 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 320, damping: 14, mass: 0.7 },
-    },
-  },
-  text: {
-    hidden: { opacity: 0, x: 100, filter: "blur(10px)" },
-    visible: {
-      opacity: 1,
-      x: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  visual: {
-    hidden: { opacity: 0, x: 140, scale: 0.85 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 150, damping: 18, mass: 1 },
-    },
-  },
-};
-
-// 03 — "Burst Open": marker pops with overshoot, text scales down from a
-// blurry oversize, visual splits open horizontally like cinema curtains.
-const burstKit: AnimationKit = {
-  container: baseContainer(0.18),
-  marker: {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: [0, 1.4, 0.9, 1],
-      transition: { duration: 0.7, times: [0, 0.55, 0.8, 1], ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  text: {
-    hidden: { opacity: 0, scale: 1.35, filter: "blur(14px)" },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-  visual: {
-    hidden: { opacity: 0, scaleX: 0 },
-    visible: {
-      opacity: 1,
-      scaleX: 1,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-    },
-  },
-};
-
-// 04 — "3D Flip": marker spins on the Y-axis, text flips up from a tilted
-// state, visual rotates in from the side like a card being turned over.
-const flipKit: AnimationKit = {
-  container: baseContainer(0.22),
-  marker: {
-    hidden: { opacity: 0, rotateY: 180, scale: 0.7 },
-    visible: {
-      opacity: 1,
-      rotateY: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 180, damping: 16, mass: 0.9 },
-    },
-  },
-  text: {
-    hidden: { opacity: 0, rotateX: -90, y: 24, filter: "blur(8px)" },
-    visible: {
-      opacity: 1,
-      rotateX: 0,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { type: "spring", stiffness: 170, damping: 18, mass: 0.95 },
-    },
-  },
-  visual: {
-    hidden: { opacity: 0, rotateY: -85, scale: 0.85 },
-    visible: {
-      opacity: 1,
-      rotateY: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 140, damping: 18, mass: 1.1 },
-    },
-  },
-};
-
-// 05 — "Explosion": stiff over-shoot spring, marker spins in with a kick,
-// text and visual punch up from below — the loudest entrance for the last step.
-const explosionKit: AnimationKit = {
-  container: baseContainer(0.12),
-  marker: {
-    hidden: { opacity: 0, scale: 0, rotate: 90 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: { type: "spring", stiffness: 420, damping: 9, mass: 0.6 },
-    },
-  },
-  text: {
-    hidden: { opacity: 0, y: 60, scale: 0.85 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 280, damping: 12, mass: 0.8 },
-    },
-  },
-  visual: {
-    hidden: { opacity: 0, scale: 0.5, y: 90, rotate: -6 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      rotate: 0,
-      transition: { type: "spring", stiffness: 220, damping: 14, mass: 1 },
-    },
-  },
-};
-
-const ANIMATION_KITS: AnimationKit[] = [
-  spinKit,
-  dropSlideKit,
-  burstKit,
-  flipKit,
-  explosionKit,
-];
 
 const scriptingLetterVariants: Variants = {
   hidden: {
@@ -873,7 +689,7 @@ export function Process() {
           <ol ref={stepsRef} className="flex relative flex-col gap-16">
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-10 z-20 hidden h-[97%] w-0.5 -translate-x-1/2 bg-white/10 lg:block"
+              className="pointer-events-none absolute left-1/2 top-10 z-0 hidden h-[97%] w-0.5 -translate-x-1/2 bg-white/10 lg:block"
             >
               <div
                 className="absolute inset-x-0 top-0 origin-top"
@@ -907,7 +723,7 @@ export function Process() {
                 >
                   <motion.div
                     variants={kit.marker}
-                    className="mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:z-20 lg:mb-0 lg:-translate-x-1/2"
+                    className="relative z-30 mb-10 flex justify-center lg:absolute lg:left-1/2 lg:top-8 lg:mb-0 lg:-translate-x-1/2"
                   >
                     <StepMarker num={step.num} />
                   </motion.div>
