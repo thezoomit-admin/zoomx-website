@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Navbar2 as Navbar } from "@/components/layout/Navbar2";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 /**
  * Site-wide chrome: navbar, page content, footer.
@@ -18,6 +19,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
         <Footer />
       </main>
       <MobileBottomNav />
+      <ScrollToTop />
     </>
   );
 }
